@@ -1,5 +1,7 @@
 import { styled } from "@mui/material";
 
-export const Image = styled("img")(() => ({
+const Image = styled("img")(() => ({
   maxWidth: "100%",
 }));
+
+export default Image;

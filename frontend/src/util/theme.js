@@ -12,13 +12,13 @@ const muiButtons = {
       textTransform: "none",
       fontSize: "16px",
     }),
-    outlined:({theme})=>({
-        color:theme.palette.primary.main,
-        backgroundColor:'transparent',
-        border:'1px solid',
-        "&:hover": {
-        backgroundColor: 'transparent',
-      }
+    outlined: ({ theme }) => ({
+      color: theme.palette.primary.main,
+      backgroundColor: "transparent",
+      border: "1px solid",
+      "&:hover": {
+        backgroundColor: "transparent",
+      },
     }),
   },
 };
