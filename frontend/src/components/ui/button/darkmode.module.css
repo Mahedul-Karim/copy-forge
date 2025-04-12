@@ -1,7 +1,6 @@
 #theme-toggle-button {
   font-size: 1rem;
   position: relative;
-  display: inline-block;
   width: 64px;
   height: 34px;
   cursor: pointer;
@@ -62,4 +61,11 @@
 }
 #toggle:checked + svg #stars {
   opacity: 1;
+}
+
+@media (max-width: 400px) {
+  #theme-toggle-button {
+    width: 45px;
+    height: 26px;
+  }
 }

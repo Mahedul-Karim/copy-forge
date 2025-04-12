@@ -3,26 +3,57 @@ import Link from "./Link";
 import Image from "./Image";
 import { Typography } from "@mui/material";
 
-const Logo = () => {
+const Logo = ({ sx = {} }) => {
   return (
     <Link
       sx={{
         display: "flex",
         alignItems: "center",
         gap: "1px",
+        ...sx,
       }}
       to={"/"}
     >
       <Image
         src="/logo.png"
         alt="This is logo"
-        sx={{ width: "50px", height: "50px", objectFit: "cover" }}
+        sx={{
+          width: {
+            xs: "50px",
+            xxs: "35px",
+          },
+          height: {
+            xs: "50px",
+            xxs: "35px",
+          },
+          objectFit: "cover",
+        }}
       />
       <Typography
         component={"p"}
-        sx={{ fontSize: "16px", fontWeight: 600, color: "text.secondary" }}
+        sx={{
+          fontSize: {
+            xs: "16px",
+            xxs: "13px",
+          },
+          fontWeight: 600,
+          color: "text.secondary",
+        }}
       >
-        CopyForge
+        Copy
+        <Typography
+          component={"span"}
+          sx={{
+            color: "#FFD343",
+            fontWeight: 600,
+            fontSize: {
+              xs: "16px",
+              xxs: "13px",
+            },
+          }}
+        >
+          Forge
+        </Typography>
       </Typography>
     </Link>
   );

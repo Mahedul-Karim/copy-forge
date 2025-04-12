@@ -2,25 +2,26 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDarkMode } from "../../../store/slice/dark";
 import style from "./darkmode.module.css";
+import { styled } from "@mui/material";
 
-const DarkMode = () => {
+const Label = styled("label")(() => ({
+  display: "inline-block",
+}));
+
+const DarkMode = ({ sx = {} }) => {
   const dispatch = useDispatch();
 
   const { isDarkMode } = useSelector((state) => state.dark);
 
   return (
-    <label id={`${style["theme-toggle-button"]}`}>
+    <Label id={`${style["theme-toggle-button"]}`} sx={sx}>
       <input
         type="checkbox"
         id={style["toggle"]}
         checked={isDarkMode}
         onChange={() => dispatch(toggleDarkMode())}
       />
-      <svg
-        viewBox="0 0 69.667 44"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg viewBox="0 0 69.667 44">
         <g
           transform="translate(3.5 3.5)"
           data-name="Component 15 – 1"
@@ -41,7 +42,7 @@ const DarkMode = () => {
             ></rect>
           </g>
 
-          <g transform="translate(2.333 2.333)" id={style['button']}>
+          <g transform="translate(2.333 2.333)" id={style["button"]}>
             <g data-name="sun" id={style["sun"]}>
               <g
                 filter="url(#sun-outer)"
@@ -201,7 +202,7 @@ const DarkMode = () => {
           </g>
         </g>
       </svg>
-    </label>
+    </Label>
   );
 };
 

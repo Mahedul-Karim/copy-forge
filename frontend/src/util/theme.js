@@ -77,8 +77,8 @@ const darkTheme = createTheme({
       main: "#B0B3B8",
     },
     background: {
-      default: "#121212",
-      paper: "#1D1D1D",
+      default: "#020617",
+      paper: "#0f172a",
     },
     text: {
       primary: "#FFFFFF",
