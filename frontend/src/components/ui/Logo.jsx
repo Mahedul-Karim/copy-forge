@@ -45,7 +45,7 @@ const Logo = ({ sx = {} }) => {
           component={"span"}
           sx={{
             color: "#FFD343",
-            fontWeight: 600,
+            fontWeight: 700,
             fontSize: {
               xs: "16px",
               xxs: "13px",

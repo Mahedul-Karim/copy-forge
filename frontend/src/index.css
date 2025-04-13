@@ -3,3 +3,9 @@
 body {
   transition: background-color 0.3s ease, color 0.3s ease,border-color 0.3s ease;
 }
+
+.text-gradient {
+  background: linear-gradient(90deg, #FFD65A 30%, #FFB84C);
+  background-clip: text;
+  color: transparent;
+}

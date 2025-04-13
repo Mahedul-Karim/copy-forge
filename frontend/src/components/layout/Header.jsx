@@ -54,6 +54,10 @@ const Header = () => {
                 "&:hover": {
                   backgroundColor: "transparent",
                 },
+                display: {
+                  xxs: "inline-flex",
+                  md: "none",
+                },
                 minWidth: 40,
               }}
               onClick={() => setOpen(true)}
