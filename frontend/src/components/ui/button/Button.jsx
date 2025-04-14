@@ -1,6 +1,6 @@
-import { Button, styled } from "@mui/material";
+import { Button as MuiButton, styled } from "@mui/material";
 
-export const ResponsiveButton = styled(Button)(() => ({
+export const Button = styled(MuiButton)(() => ({
   fontSize: {
     xxs: "12px",
     xs: "14px",

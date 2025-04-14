@@ -52,7 +52,7 @@ const Details = () => {
           "& span": {
             fontWeight: 700,
             display: "block",
-            minHeight: "59px",
+            minHeight: "59px"
           },
         }}
       >
