@@ -13,6 +13,7 @@ import {
   ShieldAlert,
   ClipboardPen,
 } from "lucide-react";
+import Title from "../ui/section/Title";
 
 const CARD_DATA = [
   {
@@ -92,22 +93,10 @@ const Tools = () => {
           },
         }}
       >
-        <Typography
-          component={"h3"}
-          sx={{
-            textAlign: "center",
-            fontSize: {
-              sm: "36px",
-              xs: "26px",
-              xxs: "24px",
-            },
-            fontWeight: 700,
-            lineHeight: 1.3,
-          }}
-        >
+        <Title highlight={"awesome tools"}>
           Things you can do with <br /> our{" "}
-          <span className="text-gradient">awesome tools</span>
-        </Typography>
+        </Title>
+
         <Box
           sx={{
             marginTop: "40px",

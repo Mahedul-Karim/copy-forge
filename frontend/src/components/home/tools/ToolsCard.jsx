@@ -11,7 +11,7 @@ const ToolsCard = ({ Icon, title, description }) => {
   return (
     <Card
       sx={{
-        boxShadow: "0 10px 25px rgba(0, 0, 0, 0.05)",
+        boxShadow: "0 0px 6px rgba(0, 0, 0, 0.15)",
         transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
         backgroundColor: `${
           theme.palette.mode === "dark"
