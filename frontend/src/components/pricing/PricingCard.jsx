@@ -96,9 +96,9 @@ const PricingCard = ({
         />
         <Stack spacing={2} sx={{ marginBottom: "20px" }}>
           {features.length > 0 &&
-            features.map((feat) => (
+            features.map((feat,i) => (
               <Box
-                key={feat.id}
+                key={i}
                 sx={{ display: "flex", alignItems: "center", gap: "12px" }}
               >
                 <Typography

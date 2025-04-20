@@ -93,9 +93,10 @@ const Tools = () => {
           },
         }}
       >
-        <Title highlight={"awesome tools"}>
-          Things you can do with <br /> our{" "}
-        </Title>
+        <Title
+          highlight={"awesome tools"}
+          text={"Things you can do with \n our awesome tools"}
+        ></Title>
 
         <Box
           sx={{

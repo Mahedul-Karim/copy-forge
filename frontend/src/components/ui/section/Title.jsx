@@ -1,7 +1,9 @@
 import { Typography } from "@mui/material";
-import React from "react";
+import React, { Fragment } from "react";
 
-const Title = ({ children, highlight }) => {
+const Title = ({ text, highlight }) => {
+  const textArray = text.split(new RegExp(`(${highlight})`, "i"));
+
   return (
     <Typography
       component={"h3"}
@@ -14,10 +16,20 @@ const Title = ({ children, highlight }) => {
         },
         fontWeight: 700,
         lineHeight: 1.3,
+        whiteSpace: "pre-wrap",
       }}
     >
-      {children}
-      <span className="text-gradient">{highlight}</span>
+      {textArray.map((text, i) =>
+        text?.toLowerCase() === highlight?.toLowerCase() ? (
+          <span className="text-gradient" key={`highlight-${i}`}>
+            {text}
+          </span>
+        ) : (
+          // <Fragment key={`normal-${i}`}>
+            text
+            // </Fragment>
+        )
+      )}
     </Typography>
   );
 };

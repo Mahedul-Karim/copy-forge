@@ -113,16 +113,16 @@ const Pricing = () => {
         },
       }}
     >
-      <Title>
-        Start with free, <span className="text-gradient">subscribe</span> <br />{" "}
-        for more features.
-      </Title>
+      <Title
+        highlight={"subscribe"}
+        text={"Start with free, subscribe \n for more features."}
+      ></Title>
       <Box sx={{ marginTop: "40px" }}>
         <Box
           sx={{
             display: "grid",
             gridTemplateColumns: {
-              sm:"repeat(2,1fr)"
+              sm: "repeat(2,1fr)",
             },
             gap: "20px",
             maxWidth: "630px",
