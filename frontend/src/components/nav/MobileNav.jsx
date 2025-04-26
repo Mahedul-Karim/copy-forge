@@ -20,7 +20,7 @@ const MobileNav = () => {
       <SheetTrigger>
         <AlignRight className="size-6 text-secondary" />
       </SheetTrigger>
-      <SheetContent className="bg-background dark:bg-paper border-border">
+      <SheetContent className="bg-background dark:bg-paper border-border overflow-auto">
         <SheetHeader className='px-0'>
           <SheetTitle className="flex items-center justify-center border-b border-solid pb-1 border-border">
             <Logo closeOnClick />
