@@ -1,28 +1,13 @@
-import { Box } from "@mui/material";
 import React from "react";
-import Image from "../../ui/Image";
 
 const HeroBanner = () => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Image
+    <div className="flex items-center justify-center">
+      <img
+        className="max-h-[250px] xs:max-h-[350px] md:max-h-[450px]"
         src="/banner.png"
-        sx={{
-          maxHeight: {
-            md: "450px",
-            xs: "350px",
-            xxs: "250px",
-          },
-          flexShrink: 0,
-        }}
       />
-    </Box>
+    </div>
   );
 };
 

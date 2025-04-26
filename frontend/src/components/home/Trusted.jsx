@@ -1,349 +1,43 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import Container from "../ui/Container";
-import { Grid, Typography } from "@mui/material";
-import Image from "../ui/Image";
+import Container from "../common/Container";
+import { TOTAL_SUMMARY, TRUSTED_DATA } from "@/lib/utils/data";
 
 const Trusted = () => {
   return (
-    <Box
-      sx={{
-        paddingBlock: {
-          xxs: "45px",
-          md: "64px",
-        },
-        backgroundColor: "background.paper",
-      }}
-    >
+    <div className="py-[45px] md:py-16 bg-paper">
       <Container>
-        <Typography
-          component={"h2"}
-          sx={{
-            textAlign: "center",
-            fontSize: {
-              xs: "18px",
-              xxs: "16px",
-            },
-            fontWeight: 500,
-            color: "text.secondary",
-            position: "relative",
-            "&::after": {
-              content: '""',
-              position: "absolute",
-              width: "40px",
-              height: "2px",
-              backgroundImage: "linear-gradient(90deg, #FFD65A 30%, #FFB84C)",
-              bottom: "-12px",
-              left: "50%",
-              transform: "translateX(-50%)",
-            },
-          }}
-        >
+        <h2 className="text-center text-base xs:text-lg font-medium text-text-secondary relative after:absolute after:w-10 after:h-[2px] after:bg-gradient-to-r after:from-[#FFD65A] after:from-30% after:to-[#FFB84C] after:-bottom-[12px] after:left-[50%] after:-translate-x-[50%]">
           Trusted By Industry leaders
-        </Typography>
-        <Box
-          sx={{
-            marginTop: "40px",
-            maxWidth: "600px",
-            marginInline: "auto",
-          }}
-        >
-          <Grid
-            container
-            columns={6}
-            spacing={2}
-            sx={{ justifyContent: "center" }}
-          >
-            <Grid
-              sx={{
-                backgroundColor: "background.default",
-                width: {
-                  xs: "80px",
-                  xxs: "70px",
-                },
-                height: {
-                  xs: "80px",
-                  xxs: "70px",
-                },
-                borderRadius: "100%",
-                border: "1px solid",
-                borderColor: "divider",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Image
-                src="/trusted1.png"
-                sx={{
-                  width: { xs: "40px", xxs: "35px" },
-                  objectFit: "contain",
-                  height: { xs: "40px", xxs: "35px" },
-                }}
-              />
-            </Grid>
-            <Grid
-              sx={{
-                backgroundColor: "background.default",
-                width: {
-                  xs: "80px",
-                  xxs: "70px",
-                },
-                height: {
-                  xs: "80px",
-                  xxs: "70px",
-                },
-                borderRadius: "100%",
-                border: "1px solid",
-                borderColor: "divider",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Image
-                src="/trusted2.png"
-                sx={{
-                  width: { xs: "40px", xxs: "35px" },
-                  objectFit: "contain",
-                  height: { xs: "40px", xxs: "35px" },
-                }}
-              />
-            </Grid>
-            <Grid
-              sx={{
-                backgroundColor: "background.default",
-                width: {
-                  xs: "80px",
-                  xxs: "70px",
-                },
-                height: {
-                  xs: "80px",
-                  xxs: "70px",
-                },
-                borderRadius: "100%",
-                border: "1px solid",
-                borderColor: "divider",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Image
-                src="/trusted3.png"
-                sx={{
-                  width: { xs: "40px", xxs: "35px" },
-                  objectFit: "contain",
-                  height: { xs: "40px", xxs: "35px" },
-                }}
-              />
-            </Grid>
-            <Grid
-              sx={{
-                backgroundColor: "background.default",
-                width: {
-                  xs: "80px",
-                  xxs: "70px",
-                },
-                height: {
-                  xs: "80px",
-                  xxs: "70px",
-                },
-                borderRadius: "100%",
-                border: "1px solid",
-                borderColor: "divider",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Image
-                src="/trusted4.png"
-                sx={{
-                  width: { xs: "40px", xxs: "35px" },
-                  objectFit: "contain",
-                  height: { xs: "40px", xxs: "35px" },
-                }}
-              />
-            </Grid>
-            <Grid
-              sx={{
-                backgroundColor: "background.default",
-                width: {
-                  xs: "80px",
-                  xxs: "70px",
-                },
-                height: {
-                  xs: "80px",
-                  xxs: "70px",
-                },
-                borderRadius: "100%",
-                border: "1px solid",
-                borderColor: "divider",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Image
-                src="/trusted5.png"
-                sx={{
-                  width: { xs: "40px", xxs: "35px" },
-                  objectFit: "contain",
-                  height: { xs: "40px", xxs: "35px" },
-                }}
-              />
-            </Grid>
-            <Grid
-              sx={{
-                backgroundColor: "background.default",
-                width: {
-                  xs: "80px",
-                  xxs: "70px",
-                },
-                height: {
-                  xs: "80px",
-                  xxs: "70px",
-                },
-                borderRadius: "100%",
-                border: "1px solid",
-                borderColor: "divider",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Image
-                src="/trusted6.png"
-                sx={{
-                  width: { xs: "40px", xxs: "35px" },
-                  objectFit: "contain",
-                  height: { xs: "40px", xxs: "35px" },
-                }}
-              />
-            </Grid>
-          </Grid>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: "40px",
-          }}
-        >
-          <Grid
-            container
-            columns={3}
-            spacing={4}
-            sx={{ justifyContent: "center" }}
-          >
-            <Grid
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: "8px",
-              }}
-            >
-              <Typography
-                component={"h3"}
-                sx={{
-                  fontSize: {
-                    xs: "20px",
-                    xxs: "18px",
-                  },
-                  fontWeight: 700,
-                }}
+        </h2>
+        <div className="mt-10 max-w-[600px] mx-auto">
+          <div className="flex items-center justify-center gap-4 flex-wrap">
+            {TRUSTED_DATA.map((data, i) => (
+              <div
+                key={i}
+                className="bg-white size-[70px] xs:size-20 rounded-full border border-solid border-border flex items-center justify-center"
               >
-                10,000+
-              </Typography>
-              <Typography
-                component={"p"}
-                sx={{
-                  color: "text.secondary",
-                  textAlign: "center",
-                  fontSize: {
-                    xs: "16px",
-                    xxs: "14px",
-                  },
-                }}
-              >
-                Happy blogger, marketer and agencies.
-              </Typography>
-            </Grid>
-            <Grid
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: "8px",
-              }}
-            >
-              <Typography
-                component={"h3"}
-                sx={{
-                  fontSize: {
-                    xs: "20px",
-                    xxs: "18px",
-                  },
-                  fontWeight: 700,
-                }}
-              >
-                4.9/5
-              </Typography>
-              <Typography
-                component={"p"}
-                sx={{
-                  color: "text.secondary",
-                  textAlign: "center",
-                  fontSize: {
-                    xs: "16px",
-                    xxs: "14px",
-                  },
-                }}
-              >
-                Satisfaction rating from 1000+ reviews <br /> on TrustPilot.
-              </Typography>
-            </Grid>
-            <Grid
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: "8px",
-              }}
-            >
-              <Typography
-                component={"h3"}
-                sx={{
-                  fontSize: {
-                    xs: "20px",
-                    xxs: "18px",
-                  },
-                  fontWeight: 700,
-                }}
-              >
-                2,00,000+ hr
-              </Typography>
-              <Typography
-                component={"p"}
-                sx={{
-                  color: "text.secondary",
-                  textAlign: "center",
-                  fontSize: {
-                    xs: "16px",
-                    xxs: "14px",
-                  },
-                }}
-              >
-                $50 million+ saved in content writing.
-              </Typography>
-            </Grid>
-          </Grid>
-        </Box>
+                <img
+                  src={data.src}
+                  className="object-contain size-[35px] xs:size-10"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="flex items-center justify-center mt-10">
+          <div className="flex  justify-center flex-wrap gap-8">
+            {TOTAL_SUMMARY.map((sum, i) => (
+              <div key={i} className="flex flex-col items-center gap-2 justify-between h-full">
+                <h3 className="text-lg xs:text-xl font-bold">{sum.title}</h3>
+                <p className="text-text-secondary text-center text-sm xs:text-base whitespace-pre-wrap">
+                  {sum.paragraph}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </Container>
-    </Box>
+    </div>
   );
 };
 

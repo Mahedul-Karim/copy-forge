@@ -1,34 +1,14 @@
 import React from "react";
-import Container from "../ui/Container";
-import Box from "@mui/material/Box";
+import Container from "../common/Container";
 import Details from "./hero/Details";
 import HeroBanner from "./hero/HeroBanner";
 
 const Hero = () => {
   return (
-    <Container
-      sx={{
-        paddingBlock: {
-          md: "64px",
-          xxs: "45px",
-        },
-        display: "grid",
-        gridTemplateColumns: {
-          md: "repeat(2,1fr)",
-          xxs: "1fr",
-        },
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+    <Container className="py-[45px] md:py-16 grid grid-cols-1 md:grid-cols-2">
+      <div className="flex flex-col justify-center items-center">
         <Details />
-      </Box>
+      </div>
       <HeroBanner />
     </Container>
   );

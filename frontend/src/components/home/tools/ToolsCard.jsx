@@ -1,76 +1,25 @@
-import { Box, Grid, Typography, useTheme } from "@mui/material";
 import React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 
-import { Layers } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 const ToolsCard = ({ Icon, title, description }) => {
-  const theme = useTheme();
-
   return (
     <Card
-      sx={{
-        boxShadow: "0 0px 6px rgba(0, 0, 0, 0.15)",
-        transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-        backgroundColor: `${
-          theme.palette.mode === "dark"
-            ? theme.palette.background.paper
-            : theme.palette.background.default
-        } `,
-        overflow: "clip",
-        "&:hover": {
-          transform: "translateY(-10px)",
-        },
-        borderRadius: "12px",
-      }}
+      className={
+        "border-border dark:bg-paper bg-white overflow-clip hover:-translate-y-[10px] transition-all duration-300 rounded-[12px]"
+      }
+      style={{ boxShadow: "0 0px 6px rgba(0, 0, 0, 0.15)" }}
     >
-      <CardContent
-        sx={{ display: "flex", flexDirection: "column", gap: "10px" }}
-      >
-        <Box>
-          <Box
-            sx={{
-              backgroundColor: "#FEF3C7",
-              display: "inline-flex",
-              padding: "8px",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: "8px",
-            }}
-          >
+      <CardContent className={"flex flex-col gap-[10px]"}>
+        <div>
+          <div className="bg-[#FEF3C7] inline-flex gap-2 items-center justify-center rounded-md p-2">
             <Icon color="#CA8A04" />
-          </Box>
-        </Box>
-        <Typography
-          component={"h2"}
-          sx={{
-            fontWeight: 700,
-            fontSize: {
-              xs: "18px",
-              xxs: "16px",
-            },
-          }}
-        >
-          {title}
-        </Typography>
-
-        <Typography
-          component="p"
-          sx={{
-            display: "-webkit-box",
-            WebkitBoxOrient: "vertical",
-            WebkitLineClamp: 3,
-            overflow: "hidden",
-            fontSize: {
-              xxs: "12px",
-              xs: "14px",
-            },
-            color: "text.secondary",
-          }}
-        >
+          </div>
+        </div>
+        <h2 className="font-bold text-base xs:text-lg">{title}</h2>
+        <p className="line-clamp-3 text-xs xs:text-sm text-text-secondary">
           {description}
-        </Typography>
+        </p>
       </CardContent>
     </Card>
   );

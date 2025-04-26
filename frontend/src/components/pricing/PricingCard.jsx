@@ -1,17 +1,8 @@
-import {
-  alpha,
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Chip,
-  Divider,
-  Stack,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import React from "react";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+
 import { Check } from "lucide-react";
+import { Button } from "../ui/button";
 
 const PricingCard = ({
   isPremium,
@@ -20,120 +11,51 @@ const PricingCard = ({
   price,
   features = [],
 }) => {
-  const theme = useTheme();
   return (
-    <Card
-      sx={{
-        boxShadow:
-          "0 10px 30px rgba(0, 0, 0, 0.03), 0 1px 8px rgba(0, 0, 0, 0.06)",
-        backgroundColor: "background.default",
-        borderRadius: "12px",
-        border: isPremium ? "2px solid" : "1px solid",
-        borderColor: "transparent",
-        borderTop: "4px solid",
-        borderTopColor: "primary.main",
-        height: "max-content",
-      }}
-    >
-      <CardContent
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+    <Card className="shadow-md bg-background border border-solid border-transparent border-t-[5px] h-max border-t-primary dark:bg-paper gap-4">
+      <CardContent className="flex flex-col">
         {isPremium && (
-          <Chip
-            color="primary"
-            label="Recommended"
-            component={"span"}
-            sx={{
-              alignSelf: "start",
-              height: "28px",
-              fontWeight: 500,
-              fontSize: "12px",
-              marginBottom: "10px",
-            }}
-          />
+          <Badge className="rounded-full mb-4 text-[#333] font-semibold">
+            Recommended
+          </Badge>
         )}
-        <Typography
-          component={"h2"}
-          sx={{
-            fontSize: "20px",
-            fontWeight: 600,
-            marginBottom: "20px",
-          }}
-        >
-          {type}
-        </Typography>
-        <Typography component="p" sx={{ fontSize: "28px", fontWeight: 600 }}>
+        <h2 className="text-xl font-semibold mb-5">{type}</h2>
+        <p className="text-[28px] font-semibold">
           ${price}{" "}
-          <Typography
-            component="span"
-            sx={{ fontSize: "14px", fontWeight: 400, color: "text.secondary" }}
-          >
+          <span className="text-sm font-normal text-text-secondary">
             /{chargeBasis?.toLowerCase()}
-          </Typography>
-        </Typography>
-        <Typography
-          component={"p"}
-          sx={{
-            marginTop: "10px",
-            marginBottom: "20px",
-            fontWeight: 400,
-            fontSize: "14px",
-            color: "text.secondary",
-          }}
-        >
+          </span>
+        </p>
+        <p className="mt-[10px] mb-5 font-normal text-sm text-text-secondary">
           {isPremium
             ? "For professionals and growing teams"
             : "Perfect for individuals getting started"}
-        </Typography>
-        <Divider
-          sx={{
-            marginBottom: "20px",
-            marginTop: "10px",
-          }}
-        />
-        <Stack spacing={2} sx={{ marginBottom: "20px" }}>
+        </p>
+        <hr className="mb-5 mt-[10px] border-border" />
+        <div className="flex flex-col mb-5 gap-4">
           {features.length > 0 &&
-            features.map((feat,i) => (
-              <Box
-                key={i}
-                sx={{ display: "flex", alignItems: "center", gap: "12px" }}
-              >
-                <Typography
-                  component={"span"}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    "& svg": {
-                      stroke: !feat.available ? "#ccc" : "#FFD65A",
-                    },
-                  }}
-                >
-                  <Check size={20} />
-                </Typography>
-                <Typography
-                  component="p"
-                  sx={{
-                    fontSize: "14px",
-                    color: "text.secondary",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
+            features.map((feat, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <span className="flex items-center">
+                  <Check
+                    size={20}
+                    className={
+                      !feat.available ? "text-[#ccc]" : "text-[#FFD65A]"
+                    }
+                  />
+                </span>
+                <p className="text-sm text-text-secondary flex items-center">
                   {feat.value} {feat.name}
-                </Typography>
-              </Box>
+                </p>
+              </div>
             ))}
-        </Stack>
-        <Button
-          variant={isPremium ? "contained" : "outlined"}
-          sx={{ borderRadius: "6px" }}
-        >
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Button variant={isPremium ? "default" : "outline"} className={`w-full font-semibold ${!isPremium && 'hover:bg-primary/10 text-[#333] dark:text-primary dark:bg-transparent dark:hover:bg-transparent dark:border-primary border-primary hover:text-[#333]'} `} >
           {isPremium ? "Get Started" : "Sign up for free"}
         </Button>
-      </CardContent>
+      </CardFooter>
     </Card>
   );
 };

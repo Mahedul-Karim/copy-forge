@@ -1,7 +1,5 @@
-import { Box, List, ListItem } from "@mui/material";
 import React from "react";
-import Link from "../ui/Link";
-import { useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 
 const NAV_LINKS = [
   {
@@ -22,55 +20,31 @@ const NAV_LINKS = [
   },
 ];
 
-const Nav = ({ sx = {} }) => {
+const Nav = ({ className = "" }) => {
   const location = useLocation();
 
   return (
-    <Box sx={{ ...sx }} component={"nav"}>
-      <List sx={{ display: "flex", alignItems: "center",gap:'4px',flexDirection:{
-        xxs:'column',
-        md:'row'
-      } }}>
+    <nav className={`${className}`}>
+      <ul className="flex items-center gap-1 flex-col md:flex-row">
         {NAV_LINKS.map((nav, i) => (
-          <ListItem
-            sx={{
-              whiteSpace: "nowrap",
-              paddingLeft:'10px',
-              paddingRight:'10px',
-              fontSize: "14px",
-              fontWeight: 600,
-              paddingTop: "6px",
-              paddingBottom: "6px",
-              "&:hover": {
-                backgroundColor: "primary.main",
-                "& .child": {
-                  color: "#333333",
-                },
-              },
-              transition: "all 0.3s",
-              borderRadius: {
-                md:"999px",
-                xxs:'8px'
-              },
-              backgroundColor:
-                location.pathname === nav.to ? "primary.main" : "transparent",
-              "& .child": {
-                color:
-                  location.pathname === nav.to ? "#333333" : "text.primary",
-                  textAlign:'center',
-                  width:'100%'
-              },
-            }}
+          <li
+            className={`whitespace-nowrap px-[10px] text-sm font-semibold py-[6px] hover:bg-primary transition-all duration-300 rounded-[8px] md:rounded-full group ${
+              location.pathname === nav.to ? "bg-primary" : "bg-transparent"
+            }`}
             key={i}
           >
-            
-            <Link to={nav.to} className="child">
+            <Link
+              to={nav.to}
+              className={`group-hover:text-[#333333] ${
+                location.pathname === nav.to ? "text-[#333333]" : "text-text-primary"
+              } text-center w-full`}
+            >
               {nav.label}
             </Link>
-          </ListItem>
+          </li>
         ))}
-      </List>
-    </Box>
+      </ul>
+    </nav>
   );
 };
 

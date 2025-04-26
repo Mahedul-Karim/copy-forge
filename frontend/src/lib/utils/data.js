@@ -1,0 +1,223 @@
+import {
+  Layers,
+  NotebookPen,
+  Tag,
+  ChartPie,
+  FileType2,
+  LetterText,
+  Film,
+  ShieldAlert,
+  ClipboardPen,
+} from "lucide-react";
+
+export const TRUSTED_DATA = [
+  {
+    src: "/trusted1.png",
+  },
+  {
+    src: "/trusted2.png",
+  },
+  {
+    src: "/trusted3.png",
+  },
+  {
+    src: "/trusted4.png",
+  },
+  {
+    src: "/trusted5.png",
+  },
+  {
+    src: "/trusted6.png",
+  },
+];
+
+export const TOTAL_SUMMARY = [
+  {
+    title: "10,000+",
+    paragraph: "Happy blogger, marketer and agencies.",
+  },
+  {
+    title: "4.9/5",
+    paragraph: "Satisfaction rating from 1000+ reviews \n on TrustPilot.",
+  },
+  {
+    title: "2,00,000+ hr",
+    paragraph: "$50 million+ saved in content writing.",
+  },
+];
+
+export const TOOLS_CARD_DATA = [
+  {
+    Icon: Layers,
+    title: "Article Generator",
+    description:
+      "Article Generator uses advanced algorithms to automatically create articles, saving effort for writers and marketers.",
+  },
+  {
+    Icon: NotebookPen,
+    title: "Rewrite Article",
+    description:
+      "Instructions to paraphrase an article while preserving its meaning, structure, and tone without infringing on plagiarism.",
+  },
+  {
+    Icon: Tag,
+    title: "Tags Generator",
+    description:
+      "A tool that generates relevant and popular tags for online content, such as blog posts, videos, and social media.",
+  },
+  {
+    Icon: ChartPie,
+    title: "Ads Content",
+    description:
+      "Automatically creates advertising copy any platforms, such as Google, Facebook, and Instagram, to attract customers.",
+  },
+  {
+    Icon: FileType2,
+    title: "Write Title",
+    description:
+      "Creates compelling written content that accurately and creatively describes AI products, highlighting their unique features and benefits.",
+  },
+  {
+    Icon: LetterText,
+    title: "Write Description",
+    description:
+      "Description Writer is a tool that generates concise, informative summaries on various topics, providing key details efficiently and effectively.",
+  },
+  {
+    Icon: Film,
+    title: "Video Script",
+    description:
+      "Video Script Writer is a tool that creates engaging and effective scripts for videos, ensuring clear and compelling storytelling.",
+  },
+  {
+    Icon: ShieldAlert,
+    title: "Grammar Checker",
+    description:
+      "AI Grammar Checker: Instantly corrects grammar, spelling, and punctuation errors for more accurate and polished written content.",
+  },
+  {
+    Icon: ClipboardPen,
+    title: "Name Generator",
+    description:
+      "Name Generator is a tool that generates creative and unique names for individuals, businesses, products, or any other naming needs.",
+  },
+];
+
+export const PRICING_TABLE = [
+  {
+    id: 1,
+    type: "Free",
+    price: "0",
+    chargeBasis: "Month",
+    features: [
+      {
+        name: "Contents Per Day",
+        key: "dailyLimit",
+        value: 3,
+        available: true,
+      },
+      {
+        name: "Saves Total",
+        key: "saveLimit",
+        value: 5,
+        available: true,
+      },
+      {
+        name: "Total Contents",
+        key: "totalContentLimit",
+        value: 20,
+        available: true,
+      },
+      {
+        name: "Access new features early",
+        key: "newFeatures",
+        value: false,
+        available: false,
+      },
+      {
+        name: "24/7 support",
+        key: "support",
+        value: false,
+        available: false,
+      },
+      {
+        name: "Refund policy",
+        key: "refund",
+        value: false,
+        available: false,
+      },
+    ],
+  },
+  {
+    id: 2,
+    type: "Premium",
+    price: "20",
+    chargeBasis: "Month",
+    features: [
+      {
+        name: "Contents Per Day",
+        key: "dailyLimit",
+        value: 50,
+        available: true,
+      },
+      {
+        name: "Saves Total",
+        key: "saveLimit",
+        value: 2000,
+        available: true,
+      },
+      {
+        name: "Total Contents",
+        key: "totalContentLimit",
+        value: 20000,
+        available: true,
+      },
+      {
+        name: "Access new features early",
+        key: "newFeatures",
+        value: true,
+        available: true,
+      },
+      {
+        name: "24/7 support",
+        key: "support",
+        value: true,
+        available: true,
+      },
+      {
+        name: "Refund policy",
+        key: "refund",
+        value: true,
+        available: true,
+      },
+    ],
+  },
+];
+
+export const faqData = [
+  {
+    title: "What is a text image generator?",
+    description:
+      "A text image generator is a tool that converts text into visually appealing images, often used for social media posts, banners, or digital designs. It allows you to customize fonts, colors, and layouts to make the text stand out as an image.",
+  },
+  {
+    title: "How does the AI text generator work?",
+    description:
+      "The AI text generator uses advanced natural language processing models to understand input prompts and generate human-like text. It learns from vast datasets to predict and form coherent, context-aware sentences tailored to your needs.",
+  },
+  {
+    title: "Is this AI text generator for beginners?",
+    description:
+      "Yes, it's designed to be user-friendly and intuitive, making it accessible even for beginners. With simple prompts and a clean interface, anyone can start generating quality content in seconds without needing technical knowledge.",
+  },
+  {
+    title: "What kind of content can the AI generator create?",
+    description:
+      "The AI generator can create a wide variety of content, including blog posts, video scripts, ad copy, article rewrites, product descriptions, and much more — all tailored to your specific goals or tone.",
+  },
+  {
+    title: "Can I customize the tone and style of the content?",
+    description:
+      "Absolutely! You can adjust the tone, style, and length of the content by simply specifying your preferences. Whether you want it to sound professional, friendly, or persuasive, the generator adapts to your input.",
+  },
+];

@@ -1,42 +1,17 @@
-import { Box, Button } from "@mui/material";
 import React from "react";
-import DarkMode from "../ui/button/DarkMode";
+import DarkMode from "../common/button/DarkMode";
+import { Button } from "../ui/button";
 
-const NavActions = ({ sx = {} }) => {
+const NavActions = ({ className = "" }) => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        gap: {
-          xs: "10px",
-          xxs: "6px",
-        },
-        ...sx,
-      }}
-    >
+    <div className={`flex items-center gap-[6px] xs:gap-[10px] ${className}`}>
       <DarkMode />
-      <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Button
-          variant="contained"
-          sx={{
-            borderRadius: "999px",
-            fontSize: {
-              xxs: "12px",
-              xs: "14px",
-            },
-            lineHeight: {
-              xs: 1.75,
-              xxs: 1.5,
-            },
-            fontWeight: 600,
-          }}
-          size="medium"
-        >
-          Login
-        </Button>
-      </Box>
-    </Box>
+      <Button
+        className={"font-semibold rounded-full transition-all duration-300"}
+      >
+        Login
+      </Button>
+    </div>
   );
 };
 
