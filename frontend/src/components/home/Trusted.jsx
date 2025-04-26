@@ -28,7 +28,7 @@ const Trusted = () => {
           <div className="flex  justify-center flex-wrap gap-8">
             {TOTAL_SUMMARY.map((sum, i) => (
               <div key={i} className="flex flex-col items-center gap-2 justify-between h-full">
-                <h3 className="text-lg xs:text-xl font-bold">{sum.title}</h3>
+                <h3 className="text-lg xs:text-xl font-bold text-text-primary">{sum.title}</h3>
                 <p className="text-text-secondary text-center text-sm xs:text-base whitespace-pre-wrap">
                   {sum.paragraph}
                 </p>

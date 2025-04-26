@@ -1,7 +1,6 @@
 import React from "react";
 import Container from "../common/Container";
 import Title from "../common/section/Title";
-import { Box } from "@mui/material";
 import PricingCard from "../pricing/PricingCard";
 import { PRICING_TABLE } from "@/lib/utils/data";
 

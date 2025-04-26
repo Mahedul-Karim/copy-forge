@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Container from "../common/Container";
 import Title from "../common/section/Title";
-import { useTheme } from "@emotion/react";
 import { faqData } from "@/lib/utils/data";
 import {
   Accordion,
@@ -11,13 +10,7 @@ import {
 } from "@/components/ui/accordion";
 
 const FAQ = () => {
-  const [expanded, setExpanded] = useState(false);
-
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
-  };
-
-  const theme = useTheme();
+  
 
   return (
     <Container className="py-[45px] md:py-16">
@@ -39,7 +32,7 @@ const FAQ = () => {
             style={{ boxShadow: "0 0px 6px rgba(0, 0, 0, 0.15)" }}
           >
             <AccordionTrigger
-              className={"cursor-pointer text-sm xs:text-base font-bold"}
+              className={"cursor-pointer text-sm xs:text-base font-bold text-text-primary"}
             >
               {data.title}
             </AccordionTrigger>

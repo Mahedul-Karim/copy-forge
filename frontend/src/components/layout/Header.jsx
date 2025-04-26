@@ -1,12 +1,12 @@
 import React from "react";
 
-import { AlignRight } from "lucide-react";
+
 
 import Container from "../common/Container";
 import Logo from "../common/Logo";
 import NavActions from "../nav/NavActions";
 import Nav from "../nav/Nav";
-import { Button } from "../ui/button";
+import MobileNav from "../nav/MobileNav";
 
 const Header = () => {
 
@@ -19,12 +19,7 @@ const Header = () => {
           </div>
           <Nav className="hidden md:block" />
           <NavActions className="hidden md:flex" />
-          <Button
-            variant="ghost"
-            className={"inline-flex md:hidden hover:bg-transparent"}
-          >
-            <AlignRight className="size-5 text-secondary" />
-          </Button>
+          <MobileNav />
         </Container>
       </header>
     </>

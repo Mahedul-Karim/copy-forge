@@ -38,7 +38,7 @@ const Details = () => {
 
   return (
     <>
-      <h1 className="text-[27px] xs:text-[35px] lg:text-[45px] font-bold leading-[1.3] text-center">
+      <h1 className="text-[27px] xs:text-[35px] lg:text-[45px] font-bold leading-[1.3] text-center text-text-primary">
         Fastest Way To Write <br />
         <span className="text-gradient font-bold block min-h-[59px]">
           {text}

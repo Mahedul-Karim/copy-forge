@@ -2,19 +2,15 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDarkMode } from "../../../store/slice/dark";
 import style from "./darkmode.module.css";
-import { styled } from "@mui/material";
 
-const Label = styled("label")(() => ({
-  display: "inline-block",
-}));
 
-const DarkMode = ({ sx = {} }) => {
+const DarkMode = ({ className="" }) => {
   const dispatch = useDispatch();
 
   const { isDarkMode } = useSelector((state) => state.dark);
 
   return (
-    <Label id={`${style["theme-toggle-button"]}`} sx={sx}>
+    <label id={`${style["theme-toggle-button"]}`} className={`${className}`} >
       <input
         type="checkbox"
         id={style["toggle"]}
@@ -202,7 +198,7 @@ const DarkMode = ({ sx = {} }) => {
           </g>
         </g>
       </svg>
-    </Label>
+    </label>
   );
 };
 
