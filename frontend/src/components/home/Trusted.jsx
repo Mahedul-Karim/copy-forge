@@ -2,9 +2,9 @@ import React from "react";
 import Container from "../common/Container";
 import { TOTAL_SUMMARY, TRUSTED_DATA } from "@/lib/utils/data";
 
-const Trusted = () => {
+const Trusted = ({className=""}) => {
   return (
-    <div className="py-[45px] md:py-16 bg-paper">
+    <div className={`py-[45px] md:py-16 bg-paper ${className}`}>
       <Container>
         <h2 className="text-center text-base xs:text-lg font-medium text-text-secondary relative after:absolute after:w-10 after:h-[2px] after:bg-gradient-to-r after:from-[#FFD65A] after:from-30% after:to-[#FFB84C] after:-bottom-[12px] after:left-[50%] after:-translate-x-[50%]">
           Trusted By Industry leaders

@@ -6,9 +6,8 @@ const ToolsCard = ({ Icon, title, description }) => {
   return (
     <Card
       className={
-        "border-border dark:bg-paper bg-white overflow-clip hover:-translate-y-[10px] transition-all duration-300 rounded-[12px]"
+        "border-border dark:bg-paper bg-white overflow-clip hover:-translate-y-[10px] transition-all duration-300 rounded-[12px] shadow-none"
       }
-      style={{ boxShadow: "0 0px 6px rgba(0, 0, 0, 0.15)" }}
     >
       <CardContent className={"flex flex-col gap-[10px]"}>
         <div>
