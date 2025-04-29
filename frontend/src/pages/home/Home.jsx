@@ -6,6 +6,7 @@ import Pricing from "../../components/home/Pricing";
 import FAQ from "../../components/home/FAQ";
 
 const Home = () => {
+  
   return (
     <>
       <Hero />
