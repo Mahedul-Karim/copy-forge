@@ -15,7 +15,7 @@ const Form = () => {
       </h2>
 
       <form className="space-y-8" onSubmit={e=>e.preventDefault()}>
-        <FloatingInput label="Your Name" />
+        <FloatingInput label="Your Name"  />
         <FloatingInput label="Your Email" />
         <FloatingTextarea label="Your Message" />
         <Button className="h-12 font-semibold" >Send Message <Send /> </Button>
