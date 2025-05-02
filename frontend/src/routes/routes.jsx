@@ -4,6 +4,7 @@ import Home from "../pages/home/Home";
 import NotFound from "@/components/error/NotFound";
 import PricingPage from "@/pages/pricing/PricingPage";
 import AboutUs from "@/pages/about-us/AboutUs";
+import ContactUs from "@/pages/contact-us/ContactUs";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path:'/about-us',
         element:<AboutUs />
+      },
+      {
+        path:'/contact-us',
+        element:<ContactUs />
       }
     ],
   },
