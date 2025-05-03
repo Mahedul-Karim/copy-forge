@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import FloatingInput from "@/components/form/FloatingInput";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router";
 
 const Login = () => {
   return (
@@ -43,7 +44,9 @@ const Login = () => {
             <img src="/google.svg" alt="" className="size-5" />
             Google
           </Button>
+          
         </div>
+        <p className="text-sm font-medium text-text-primary" >Don&apos;t have an account? <Link to="/auth/sign-up" className="text-yellow-500" >Create One</Link></p>
       </CardFooter>
     </Card>
   );

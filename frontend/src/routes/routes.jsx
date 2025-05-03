@@ -7,6 +7,7 @@ import AboutUs from "@/pages/about-us/AboutUs";
 import ContactUs from "@/pages/contact-us/ContactUs";
 import Auth from "@/pages/layout/Auth";
 import Login from "@/pages/auth/Login";
+import SignUp from "@/pages/auth/SignUp";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
           {
             path: "login",
             element: <Login />,
+          },
+          {
+            path: "sign-up",
+            element: <SignUp />,
           },
         ],
       },
