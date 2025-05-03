@@ -5,6 +5,8 @@ import NotFound from "@/components/error/NotFound";
 import PricingPage from "@/pages/pricing/PricingPage";
 import AboutUs from "@/pages/about-us/AboutUs";
 import ContactUs from "@/pages/contact-us/ContactUs";
+import Auth from "@/pages/layout/Auth";
+import Login from "@/pages/auth/Login";
 
 export const router = createBrowserRouter([
   {
@@ -17,17 +19,27 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path:'/pricing',
-        element:<PricingPage />
+        path: "/pricing",
+        element: <PricingPage />,
       },
       {
-        path:'/about-us',
-        element:<AboutUs />
+        path: "/about-us",
+        element: <AboutUs />,
       },
       {
-        path:'/contact-us',
-        element:<ContactUs />
-      }
+        path: "/contact-us",
+        element: <ContactUs />,
+      },
+      {
+        path: "auth",
+        element: <Auth />,
+        children: [
+          {
+            path: "login",
+            element: <Login />,
+          },
+        ],
+      },
     ],
   },
 ]);

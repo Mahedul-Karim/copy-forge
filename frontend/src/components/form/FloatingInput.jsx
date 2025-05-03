@@ -11,7 +11,7 @@ const FloatingInput = ({label,hasValue=false ,...props}) => {
         }
         {...props}
       />
-      <Label className={`text-base text-text-secondary/60 font-normal absolute top-[15px] left-[10px] peer-focus:text-sm peer-focus:top-[-12px] peer-focus:left-0 transition-all duration-300 z-[-1] peer-focus:font-medium peer-focus:text-text-primary  ${hasValue && 'top-[-12px] text-sm left-0 text-text-primary font-medium'}`}>
+      <Label className={`text-sm xs:text-base text-text-secondary/60 font-normal absolute top-[15px] left-[10px] peer-focus:text-xs xs:peer-focus:text-sm peer-focus:top-[-12px] peer-focus:left-0 transition-all duration-300 z-[-1] peer-focus:font-medium peer-focus:text-text-primary  ${hasValue && 'top-[-12px] text-xs xs:text-sm left-0 text-text-primary font-medium'}`}>
         {label}
       </Label>
     </div>
