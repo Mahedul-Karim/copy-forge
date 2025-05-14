@@ -2,7 +2,9 @@ import React from "react";
 import DarkMode from "../common/button/DarkMode";
 import { Button } from "../ui/button";
 import SheetCloseWrapper from "../common/SheetCloseWrapper";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const NavActions = ({ className = "", closeOnClick = false }) => {
   const navigate = useNavigate();
@@ -27,6 +29,12 @@ const NavActions = ({ className = "", closeOnClick = false }) => {
           Login
         </Button>
       </SheetCloseWrapper>
+      <Link to="/user" className="hidden md:inline-block"  >
+        <Avatar className="size-10" >
+          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      </Link>
     </div>
   );
 };
