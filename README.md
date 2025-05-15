@@ -1,4 +1,4 @@
-<h1 align="center" style="font-size:40px"><strong>🛠️ This site is a work in progress. Contributions and feedback are welcome!</strong></h1>
+<h2 align="center"><strong>🛠️ This site is a work in progress. Contributions and feedback are welcome!</strong></h2>
 
 ## 🔗 Live URL
 
