@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 
 import { SquareChartGantt, CreditCard, Settings } from "lucide-react";
+import Overview from "@/components/user/overview/Overview";
 
 const Profile = () => {
   const [tab, setTab] = useState("overview");
@@ -53,7 +54,7 @@ const Profile = () => {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="overview">
-              Make changes to your account here.
+              <Overview />
             </TabsContent>
             <TabsContent value="billing">
               Change your password here.
