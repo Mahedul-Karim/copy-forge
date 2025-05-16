@@ -22,3 +22,4 @@ https://copy-forge.vercel.app/
 
 - **React Js:** - Used react js js to create the whole application.
 - **Shadcn UI:** - For prebuilt components
+- **Framer Motion:** - For animation

@@ -19,7 +19,7 @@ const Profile = () => {
 
   return (
     <main className="py-8 md:py-16 bg-paper dark:bg-background">
-      <Container className="bg-background dark:bg-paper rounded-md">
+      <Container className="bg-background dark:bg-paper rounded-xl">
         <ProfileInfo />
         <section className="p-6">
           <Tabs value={tab} onValueChange={setTab} className="w-full">
