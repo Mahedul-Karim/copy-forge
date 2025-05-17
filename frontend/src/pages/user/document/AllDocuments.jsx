@@ -1,11 +1,9 @@
-import { Button, buttonVariants } from "@/components/ui/button";
-import React from "react";
-import { Link } from "react-router";
-
-import { Pencil, Trash,  ArrowDown, Layers } from "lucide-react";
-
-import { formateDate } from "@/lib/utils";
+import Container from "@/components/common/Container";
 import DataTable from "@/components/common/data/DataTable";
+import { Button } from "@/components/ui/button";
+import { formateDate } from "@/lib/utils";
+import { ArrowDown, Layers, Pencil, Trash } from "lucide-react";
+import React from "react";
 
 const data = [
   {
@@ -21,6 +19,7 @@ const data = [
 const columns = [
   {
     accessorKey: "name",
+    enableSorting: true,
     header: ({ column }) => {
       return (
         <Button
@@ -44,6 +43,7 @@ const columns = [
   },
   {
     accessorKey: "createdAt",
+    enableSorting: true,
     header: ({ column }) => {
       return (
         <Button
@@ -84,24 +84,17 @@ const columns = [
   },
 ];
 
-const RecentDocuments = () => {
-  
+const AllDocuments = () => {
   return (
-    <section className="order-2 xs:order-3">
-      <div className="flex items-center justify-between">
-        <h3 className="xs:text-lg font-bold text-text-primary">
-          Recent Documents
-        </h3>
-        <Link
-          to="/user/documents"
-          className={buttonVariants({ variant: "ghost" })}
-        >
-          View All
-        </Link>
-      </div>
-      <DataTable data={data} columns={columns} />
-    </section>
+    <main className="bg-paper dark:bg-background">
+      <Container className="py-8 md:py-16">
+        <section className="p-6 rounded-xl bg-background dark:bg-paper">
+          <h3 className="xs:text-lg font-bold text-text-primary">All Documents</h3>
+          <DataTable data={data} columns={columns} />
+        </section>
+      </Container>
+    </main>
   );
 };
 
-export default RecentDocuments;
+export default AllDocuments;
