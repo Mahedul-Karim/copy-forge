@@ -50,6 +50,10 @@ export const router = createBrowserRouter([
         path: "user",
         element: <Profile />,
       },
+      {
+        path: "/user/documents",
+        element: <div>Hello </div>,
+      },
     ],
   },
 ]);

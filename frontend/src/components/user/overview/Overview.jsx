@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "../../ui/button";
 import { Clock, FileText, LogOut, Pencil, Save, Scroll } from "lucide-react";
 import StateCard from "./StateCard";
+import RecentDocuments from "./RecentDocuments";
 
 const stats = [
   {
@@ -33,7 +34,7 @@ const stats = [
 const Overview = () => {
   return (
     <section className="flex flex-col gap-3">
-      <div className="flex flex-col xs:flex-row xs:justify-end items-center gap-4 order-2 xs:order-1">
+      <div className="flex flex-col xs:flex-row xs:justify-end items-center gap-4 order-3 xs:order-1">
         <Button className="font-semibold w-full xs:w-auto">
           <Pencil /> Create New
         </Button>
@@ -55,6 +56,7 @@ const Overview = () => {
             ))}
         </section>
       </div>
+      <RecentDocuments />
     </section>
   );
 };

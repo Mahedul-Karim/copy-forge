@@ -10,7 +10,7 @@ export const staggerContainer = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.2,
+      staggerChildren: 0.4,
     },
   },
 };
@@ -21,7 +21,7 @@ export const cardVariant = {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: { duration: 0.4, ease: "easeOut" },
+    transition: { duration: 1, ease: "easeOut" },
   },
 };
 

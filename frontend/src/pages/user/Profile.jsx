@@ -25,7 +25,7 @@ const Profile = () => {
           <Tabs value={tab} onValueChange={setTab} className="w-full">
             <div className="xs:hidden mb-2">
               <Select value={tab} onValueChange={setTab}>
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full text-text-primary">
                   <SelectValue placeholder="Select a tab" />
                 </SelectTrigger>
                 <SelectContent className="border-border">
