@@ -14,6 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Logo from "../common/Logo";
 import NavActions from "./NavActions";
 import Nav from "./Nav";
+import { Link } from "react-router";
 
 const MobileNav = () => {
   return (
@@ -31,19 +32,21 @@ const MobileNav = () => {
               This is mobile nav
             </SheetDescription>
             <div className="p-4 bg-primary/30 flex items-center gap-2 flex-wrap">
-              <div className="shrink-0">
+              <Link to="/user" className="shrink-0">
                 <Avatar className="size-11 xs:size-13">
                   <AvatarImage src="https://github.com/shadcn.png" />
                   <AvatarFallback className="bg-primary text-text-primary font-medium">
                     CN
                   </AvatarFallback>
                 </Avatar>
-              </div>
+              </Link>
               <div>
                 <h3 className="text-sm xs:text-base font-medium text-text-primary">
                   John Doe
                 </h3>
-                <p className="text-xs xs:text-sm text-text-secondary">test@gmail.com</p>
+                <p className="text-xs xs:text-sm text-text-secondary">
+                  test@gmail.com
+                </p>
               </div>
             </div>
           </SheetHeader>

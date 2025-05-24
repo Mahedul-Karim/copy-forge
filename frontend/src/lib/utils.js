@@ -12,3 +12,13 @@ export const formateDate = (date) => {
     year: "numeric",
   });
 };
+
+export const maskNumber = (number) => {
+  const stringedNumber = String(number);
+
+  const last4digit = stringedNumber.slice(-4);
+
+  const maskedNumber = "*".repeat(stringedNumber.length - 4);
+
+  return maskedNumber + last4digit;
+};
