@@ -41,7 +41,7 @@ const CreditCardModal = ({ open, setOpen }) => {
           <RadioGroup
             value={cardType}
             onValueChange={setCardType}
-            className={"grid grid-cols-2 gap-4"}
+            className={"grid xs:grid-cols-2 gap-4"}
           >
             <div className="relative">
               <RadioGroupItem
@@ -136,7 +136,7 @@ const CreditCardModal = ({ open, setOpen }) => {
                   <CalendarIcon className="mr-2 h-4 w-4 text-text-secondary" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-[--radix-popover-trigger-width] p-0 shadow-none border-border">
+              <PopoverContent className="xs:w-[var(--radix-popper-anchor-width)]  p-0 shadow-none border-border">
                 <Calendar
                   mode="single"
                   animate
@@ -145,7 +145,8 @@ const CreditCardModal = ({ open, setOpen }) => {
                   initialFocus
                   disabled={{ before: new Date() }}
                   fromMonth={new Date()}
-                  className="bg-background dark:bg-paper overflow-clip rounded-lg"
+                  className="bg-background dark:bg-paper overflow-clip rounded-lg w-full"
+                  
                 />
               </PopoverContent>
             </Popover>
