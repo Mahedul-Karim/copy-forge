@@ -47,7 +47,6 @@ const Calendar = ({ date, setDate }) => {
     0
   ).getDate();
 
-  console.log("I AM CALENDER....");
 
   const dates = useMemo(() => {
     const result = [];
@@ -96,7 +95,7 @@ const Calendar = ({ date, setDate }) => {
         >
           <ChevronLeft className="text-xs xs:text-sm" />
         </Button>
-        <p className="text-text-primary text-sm xs:text-base font-medium">
+        <p className="text-text-primary text-base font-medium">
           {MONTHS.at(currentMonth)}, {currentYear}
         </p>
         <Button
@@ -131,7 +130,7 @@ const Calendar = ({ date, setDate }) => {
             <div key={i}>
               <button
                 type="button"
-                className={`mb-4 disabled:text-gray-400 disabled:hover:bg-transparent hover:bg-primary hover:text-[#333] dark:hover:bg-hover dark:hover:text-[#333] hover:transition-all hover:duration-300 w-8 h-8 rounded-md text-xs xs:text-sm font-medium cursor-pointer disabled:cursor-none ${
+                className={`mb-4 disabled:text-gray-400 disabled:hover:bg-transparent hover:bg-primary hover:text-[#333] dark:hover:bg-hover dark:hover:text-[#333] hover:transition-all hover:duration-300 w-8 h-8 rounded-md text-sm font-medium cursor-pointer disabled:cursor-none ${
                   date.date === +selectedDate.getDate() &&
                   !isDisabled &&
                   selectedDate.getMonth() === currentMonth &&

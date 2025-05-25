@@ -14,6 +14,7 @@ import {
 import { SquareChartGantt, CreditCard, Settings } from "lucide-react";
 import Overview from "@/components/user/overview/Overview";
 import Billings from "@/components/user/billing/Billings";
+import ProfileSetting from "@/components/user/settings/ProfileSettings";
 
 const Profile = () => {
   const [tab, setTab] = useState("overview");
@@ -61,7 +62,7 @@ const Profile = () => {
               <Billings />
             </TabsContent>
             <TabsContent value="settings">
-              Change your settings here.
+              <ProfileSetting />
             </TabsContent>
           </Tabs>
         </section>
