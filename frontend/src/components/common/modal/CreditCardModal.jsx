@@ -9,7 +9,6 @@ import {
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
-import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
@@ -18,6 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { formatDate } from "date-fns";
 import { CalendarIcon } from "lucide-react";
+import Calendar from "../calendar/Calendar";
 
 const CreditCardModal = ({ open, setOpen }) => {
   const [cardType, setCardType] = useState("visa");
@@ -136,18 +136,8 @@ const CreditCardModal = ({ open, setOpen }) => {
                   <CalendarIcon className="mr-2 h-4 w-4 text-text-secondary" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="xs:w-[var(--radix-popper-anchor-width)]  p-0 shadow-none border-border">
-                <Calendar
-                  mode="single"
-                  animate
-                  selected={expiryDate}
-                  onSelect={setExpiryDate}
-                  initialFocus
-                  disabled={{ before: new Date() }}
-                  fromMonth={new Date()}
-                  className="bg-background dark:bg-paper overflow-clip rounded-lg w-full"
-                  
-                />
+              <PopoverContent className="w-[var(--radix-popper-anchor-width)] p-2 xs:p-4 shadow-none border-border bg-background dark:bg-paper">
+                <Calendar date={expiryDate} setDate={setExpiryDate} />
               </PopoverContent>
             </Popover>
           </div>
