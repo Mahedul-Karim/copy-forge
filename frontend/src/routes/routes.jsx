@@ -10,6 +10,7 @@ import Login from "@/pages/auth/Login";
 import SignUp from "@/pages/auth/SignUp";
 import Profile from "@/pages/user/Profile";
 import AllDocuments from "@/pages/user/document/AllDocuments";
+import CreateDocument from "@/pages/document/CreateDocument";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
       {
         path: "/user/documents",
         element: <AllDocuments />,
+      },
+      {
+        path: "/document/create",
+        element: <CreateDocument />,
       },
     ],
   },

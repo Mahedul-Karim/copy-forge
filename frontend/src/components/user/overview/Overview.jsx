@@ -3,6 +3,7 @@ import { Button } from "../../ui/button";
 import { Clock, FileText, LogOut, Pencil, Save, Scroll } from "lucide-react";
 import StateCard from "./StateCard";
 import RecentDocuments from "./RecentDocuments";
+import { useNavigate } from "react-router";
 
 const stats = [
   {
@@ -32,10 +33,15 @@ const stats = [
 ];
 
 const Overview = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="flex flex-col gap-3">
       <div className="flex flex-col xs:flex-row xs:justify-end items-center gap-4 order-3 xs:order-1">
-        <Button className="font-semibold w-full xs:w-auto">
+        <Button
+          className="font-semibold w-full xs:w-auto"
+          onClick={() => navigate("/document/create")}
+        >
           <Pencil /> Create New
         </Button>
         <Button className="font-semibold bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white/10 dark:hover:bg-white/20 w-full xs:w-auto">
