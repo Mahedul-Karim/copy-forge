@@ -11,6 +11,7 @@ https://copy-forge.vercel.app/
 ## ✨ Custom-Built Features (No External Libraries)
 
 - Custom typing animation
+- Used custom utility function to format date
 
 ## 🧪 Test Credentials
 
@@ -23,3 +24,4 @@ https://copy-forge.vercel.app/
 - **React Js:** - Used react js js to create the whole application.
 - **Shadcn UI:** - For prebuilt components
 - **Framer Motion:** - For animation
+- **@tanstack/react-table:** - As a headless ui for table
