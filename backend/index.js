@@ -42,7 +42,5 @@ process.on("unhandledRejection", (err) => {
 });
 
 app.listen(PORT, () => {
-  console.log(
-    `Server running port in ${PORT}`
-  );
+  console.log(`Server running port in ${PORT}`);
 });
