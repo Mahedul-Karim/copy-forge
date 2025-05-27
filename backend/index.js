@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { handleError } from "./controller/error.js";
+import { configCloudinary } from "./config/cloudinary.js";
+import { connectDB } from "./config/db.js";
 
 dotenv.config({ path: "./.env.local" });
 
@@ -24,6 +26,9 @@ app.use(
 );
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
+
+connectDB();
+configCloudinary();
 
 app.use(handleError);
 
