@@ -10,7 +10,7 @@ const createUser = asyncWrapper(async (req, res, next) => {
 
   const limits = {};
 
-  for (const feature in pricing.features) {
+  for (const feature of pricing.features) {
     if (feature.key === "dailyLimit") {
       limits.dailyLimit = feature.value;
     }
@@ -44,6 +44,7 @@ const createUser = asyncWrapper(async (req, res, next) => {
     success: true,
     message: "User registered successfully!",
     user,
+    stats: stat,
   });
 });
 
@@ -51,6 +52,14 @@ const getUser = asyncWrapper(async (req, res, next) => {
   const { email } = req.body;
 
   const user = await User.findOne({ email });
+
+  if (!user) {
+    return res.status(200).json({
+      success: true,
+      user: null,
+      stats: null,
+    });
+  }
 
   const stats = await Stats.findById(user?.status);
 
@@ -61,4 +70,4 @@ const getUser = asyncWrapper(async (req, res, next) => {
   });
 });
 
-export { createUser,getUser };
+export { createUser, getUser };

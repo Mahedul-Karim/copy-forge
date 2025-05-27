@@ -15,8 +15,13 @@ import Logo from "../common/Logo";
 import NavActions from "./NavActions";
 import Nav from "./Nav";
 import { Link } from "react-router";
+import { useSelector } from "react-redux";
 
 const MobileNav = () => {
+
+
+  const { user } = useSelector(state=>state.user);
+
   return (
     <div className="block md:hidden">
       <Sheet>
@@ -31,7 +36,7 @@ const MobileNav = () => {
             <SheetDescription className="sr-only">
               This is mobile nav
             </SheetDescription>
-            <div className="p-4 bg-primary/30 flex items-center gap-2 flex-wrap">
+            {user && <div className="p-4 bg-primary/30 flex items-center gap-2 flex-wrap">
               <Link to="/user" className="shrink-0">
                 <Avatar className="size-11 xs:size-13">
                   <AvatarImage src="https://github.com/shadcn.png" />
@@ -48,7 +53,7 @@ const MobileNav = () => {
                   test@gmail.com
                 </p>
               </div>
-            </div>
+            </div>}
           </SheetHeader>
           <Nav className="px-4" closeOnClick={true} />
           <SheetFooter className="px-0">

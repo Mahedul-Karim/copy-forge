@@ -4,7 +4,6 @@ const userSchema = new Schema(
   {
     fullName: {
       type: String,
-      required: true,
     },
     email: {
       type: String,
@@ -13,11 +12,9 @@ const userSchema = new Schema(
     avatar: {
       public_id: {
         type: String,
-        required: true,
       },
       url: {
         type: String,
-        required: true,
       },
     },
     status: {

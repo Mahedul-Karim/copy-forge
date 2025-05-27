@@ -5,9 +5,12 @@ import SheetCloseWrapper from "../common/SheetCloseWrapper";
 import { Link, useNavigate } from "react-router";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useSelector } from "react-redux";
 
 const NavActions = ({ className = "", closeOnClick = false }) => {
   const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.user);
 
   return (
     <div
@@ -19,22 +22,25 @@ const NavActions = ({ className = "", closeOnClick = false }) => {
         </p>
         <DarkMode />
       </div>
-      <SheetCloseWrapper closeOnClick={closeOnClick}>
-        <Button
-          className={
-            "font-semibold rounded-md md:rounded-full transition-all duration-300"
-          }
-          onClick={() => navigate("/auth/login")}
-        >
-          Login
-        </Button>
-      </SheetCloseWrapper>
-      <Link to="/user" className="hidden md:inline-block"  >
-        <Avatar className="size-10" >
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-      </Link>
+      {!user ? (
+        <SheetCloseWrapper closeOnClick={closeOnClick}>
+          <Button
+            className={
+              "font-semibold rounded-md md:rounded-full transition-all duration-300"
+            }
+            onClick={() => navigate("/auth/login")}
+          >
+            Login
+          </Button>
+        </SheetCloseWrapper>
+      ) : (
+        <Link to="/user" className="hidden md:inline-block">
+          <Avatar className="size-10">
+            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+        </Link>
+      )}
     </div>
   );
 };
