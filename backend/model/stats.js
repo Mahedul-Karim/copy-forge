@@ -5,14 +5,17 @@ const statsSchema = new Schema(
     packageType: {
       type: String,
       enum: ["Free", "Premium"],
+      required:true
     },
     package: {
       type: Schema.Types.ObjectId,
       ref: "Package",
+      required:true
     },
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required:true
     },
     usage: {
       dailyLimitUsed: { type: Number, default: 0 },
