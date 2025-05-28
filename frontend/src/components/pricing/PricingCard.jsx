@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 
 import { Check } from "lucide-react";
 import { Button } from "../ui/button";
+import { useSelector } from "react-redux";
 
 const PricingCard = ({
   isPremium,
@@ -11,6 +12,10 @@ const PricingCard = ({
   price,
   features = [],
 }) => {
+  const { stats } = useSelector((state) => state.user);
+
+  const isCurrentPlan = stats === type;
+
   return (
     <Card className="shadow-md bg-background border border-solid border-transparent border-t-[5px] h-max border-t-primary dark:bg-paper gap-4">
       <CardContent className="flex flex-col">
@@ -52,8 +57,21 @@ const PricingCard = ({
         </div>
       </CardContent>
       <CardFooter>
-        <Button variant={isPremium ? "default" : "outline"} className={`w-full font-semibold ${!isPremium && 'hover:bg-primary/10 text-[#333] dark:text-primary dark:bg-transparent dark:hover:bg-transparent dark:border-primary border-primary hover:text-[#333]'} `} >
-          {isPremium ? "Get Started" : "Sign up for free"}
+        <Button
+          variant={isPremium ? "default" : "outline"}
+          className={`w-full font-semibold ${
+            !isPremium &&
+            "hover:bg-primary/10 text-[#333] dark:text-primary dark:bg-transparent dark:hover:bg-transparent dark:border-primary border-primary hover:text-[#333]"
+          } `}
+          disabled={isCurrentPlan || stats === "Premium"}
+        >
+          {isPremium
+            ? isCurrentPlan
+              ? "Current Plan"
+              : "Get Started"
+            : isCurrentPlan
+            ? "Current Plan"
+            : "Sign up for free"}
         </Button>
       </CardFooter>
     </Card>

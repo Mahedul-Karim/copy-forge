@@ -5,6 +5,7 @@ import { handleError } from "./controller/error.js";
 import { configCloudinary } from "./config/cloudinary.js";
 import { connectDB } from "./config/db.js";
 import { userRoutes } from "./routes/user.js";
+import { packageRoutes } from "./routes/package.js";
 
 dotenv.config({ path: "./.env.local" });
 
@@ -32,6 +33,7 @@ connectDB();
 configCloudinary();
 
 app.use("/user", userRoutes);
+app.use("/package", packageRoutes);
 
 app.use(handleError);
 
