@@ -15,9 +15,14 @@ import {
   browserSessionPersistence,
   setPersistence,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from "firebase/auth";
-import { auth } from "@/config/firebase.config";
+import { auth, googleProvider } from "@/config/firebase.config";
 import { Loader } from "lucide-react";
+import { api } from "@/lib/api";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/store/slice/user";
+import { useToast } from "@/hooks/useToast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -25,6 +30,11 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
+  const { error } = useToast();
+
+  /**signin with email and password */
   const { mutate, isPending } = useMutation({
     mutationFn: async () => {
       await setPersistence(auth, browserSessionPersistence);
@@ -37,6 +47,42 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     mutate();
+  };
+
+  /**signin with google */
+  const { mutate: googleMutate, isPending: isLoading } = useMutation({
+    mutationFn: async () => {
+      const { user } = await signInWithPopup(auth, googleProvider);
+
+      const email = user?.providerData?.[0]?.email;
+      const fullName = user.providerData[0].displayName;
+
+      const options = {
+        method: "POST",
+        data: {
+          email,
+          fullName,
+        },
+      };
+
+      const data = await api({ endpoint: "user/google", options });
+
+      return data;
+    },
+    onSuccess: (data) => {
+      dispatch(
+        setUser({ user: data?.user, stats: data?.stats, token: data?.token })
+      );
+
+      navigate("/");
+    },
+    onError: (err) => {
+      error(err.message);
+    },
+  });
+
+  const googleSignin = () => {
+    googleMutate();
   };
 
   return (
@@ -82,9 +128,11 @@ const Login = () => {
           <Button
             variant="outline"
             className="bg-transparent w-full border-border flex items-center gap-2 dark:bg-transparent hover:bg-transparent dark:hover:bg-transparent text-text-primary/70 hover:text-text-primary/70"
+            onClick={googleSignin}
+            disabled={isLoading}
           >
             <img src="/google.svg" alt="" className="size-5" />
-            Google
+            {isLoading ? 'Signing in...' : "Google"}
           </Button>
         </div>
         <p className="text-sm font-medium text-text-primary">

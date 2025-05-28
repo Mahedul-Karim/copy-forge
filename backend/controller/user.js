@@ -48,7 +48,7 @@ const createUser = asyncWrapper(async (req, res, next) => {
 
   await user.save();
 
-  const token = generateToken({ email: user.email },process.env.JWT_SECRET);
+  const token = generateToken({ email: user.email }, process.env.JWT_SECRET);
 
   res.status(201).json({
     success: true,
@@ -74,7 +74,7 @@ const getUser = asyncWrapper(async (req, res, next) => {
 
   const stats = await Stats.findById(user?.status);
 
-  const token = generateToken({ email: user.email },process.env.JWT_SECRET);
+  const token = generateToken({ email: user.email }, process.env.JWT_SECRET);
 
   res.status(200).json({
     success: true,
@@ -84,4 +84,69 @@ const getUser = asyncWrapper(async (req, res, next) => {
   });
 });
 
-export { createUser, getUser };
+const googleSignin = asyncWrapper(async (req, res, next) => {
+  const { email, fullName } = req.body;
+
+  const existingUser = await User.findOne({ email });
+
+  if (existingUser) {
+    const stats = await Stats.findById(existingUser?.status);
+
+    const token = generateToken(
+      { email: existingUser.email },
+      process.env.JWT_SECRET
+    );
+
+    return res.status(200).json({
+      success: true,
+      user:existingUser,
+      stats,
+      token,
+    });
+  }
+
+  const pricing = await Package.findOne({ type: "Free" });
+
+  const limits = {};
+
+  for (const feature of pricing.features) {
+    if (feature.key === "dailyLimit") {
+      limits.dailyLimit = feature.value;
+    }
+
+    if (feature.key === "saveLimit") {
+      limits.saveLimit = feature.value;
+    }
+
+    if (feature.key === "totalContentLimit") {
+      limits.totalContentLimit = feature.value;
+    }
+  }
+
+  const user = await User.create({
+    email,
+    fullName,
+  });
+
+  const stats = await Stats.create({
+    packageType: pricing.type,
+    package: pricing._id,
+    user: user._id,
+    limits,
+  });
+
+  user.status = stats._id;
+
+  await user.save();
+
+  const token = generateToken({ email: user.email }, process.env.JWT_SECRET);
+
+  res.status(200).json({
+    success: true,
+    user,
+    stats,
+    token,
+  });
+});
+
+export { createUser, getUser, googleSignin };
