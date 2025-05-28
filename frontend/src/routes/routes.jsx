@@ -11,6 +11,7 @@ import SignUp from "@/pages/auth/SignUp";
 import Profile from "@/pages/user/Profile";
 import AllDocuments from "@/pages/user/document/AllDocuments";
 import CreateDocument from "@/pages/document/CreateDocument";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -50,7 +51,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "user",
-        element: <Profile />,
+        element: (
+          <ProtectedRoutes>
+            <Profile />,
+          </ProtectedRoutes>
+        ),
       },
       {
         path: "/user/documents",
