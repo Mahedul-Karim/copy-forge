@@ -15,7 +15,11 @@ import { useToast } from "@/hooks/useToast";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/store/slice/user";
 import { Loader } from "lucide-react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  setPersistence,
+  browserSessionPersistence,
+} from "firebase/auth";
 import { auth } from "@/config/firebase.config";
 import { api } from "@/lib/api";
 
@@ -32,6 +36,8 @@ const SignUp = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: async () => {
+      await setPersistence(auth, browserSessionPersistence);
+
       await createUserWithEmailAndPassword(auth, email, password);
 
       const options = {
@@ -52,7 +58,10 @@ const SignUp = () => {
       setPassword("");
       setConfirmPassword("");
       success(data?.message);
-      dispatch(setUser({ user: data?.user, stats: data?.stats }));
+      dispatch(
+        setUser({ user: data?.user, stats: data?.stats, token: data?.token })
+      );
+
       navigate("/");
     },
     onError: (err) => {

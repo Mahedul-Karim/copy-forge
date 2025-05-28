@@ -15,6 +15,9 @@ export const api = async ({ endpoint, options }) => {
         let percent = Math.round((progress.loaded * 100) / progress.total);
         console.log(percent);
       },
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("forgeToken") || null}`,
+      },
     });
 
     if (!data.success) {

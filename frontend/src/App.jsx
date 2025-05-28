@@ -10,6 +10,7 @@ import { clearLoading, setUser } from "./store/slice/user";
 function App() {
   const dispatch = useDispatch();
 
+
   const { mutate } = useServer({
     onSuccess: (data) => {
       if (!data.user) {
@@ -17,7 +18,7 @@ function App() {
         return;
       }
 
-      dispatch(setUser({ user: data.user, stats: data?.stats }));
+      dispatch(setUser({ user: data.user, stats: data?.stats,token: data?.token }));
     },
     onError: () => {
       dispatch(clearLoading());

@@ -4,6 +4,10 @@ import { Clock, FileText, LogOut, Pencil, Save, Scroll } from "lucide-react";
 import StateCard from "./StateCard";
 import RecentDocuments from "./RecentDocuments";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { signOut } from "firebase/auth";
+import { auth } from "@/config/firebase.config";
+import { clearUser } from "@/store/slice/user";
 
 const stats = [
   {
@@ -35,6 +39,14 @@ const stats = [
 const Overview = () => {
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
+  const handleSignout = async () => {
+    await signOut(auth);
+    navigate("/");
+    dispatch(clearUser());
+  };
+
   return (
     <section className="flex flex-col gap-3">
       <div className="flex flex-col xs:flex-row xs:justify-end items-center gap-4 order-3 xs:order-1">
@@ -44,7 +56,10 @@ const Overview = () => {
         >
           <Pencil /> Create New
         </Button>
-        <Button className="font-semibold bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white/10 dark:hover:bg-white/20 w-full xs:w-auto">
+        <Button
+          className="font-semibold bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white/10 dark:hover:bg-white/20 w-full xs:w-auto"
+          onClick={handleSignout}
+        >
           <LogOut /> Log Out
         </Button>
       </div>

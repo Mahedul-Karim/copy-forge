@@ -2,9 +2,17 @@ import { Package } from "../model/package.js";
 import { Stats } from "../model/stats.js";
 import { User } from "../model/user.js";
 import { asyncWrapper } from "../util/asyncWrapper.js";
+import AppError from "../config/error.js";
+import { generateToken } from "../util/util.js";
 
 const createUser = asyncWrapper(async (req, res, next) => {
   const { email, fullName } = req.body;
+
+  const existingUser = await User.findOne({ email });
+
+  if (existingUser) {
+    return next(new AppError("User already exists!", 400));
+  }
 
   const pricing = await Package.findOne({ type: "Free" });
 
@@ -40,11 +48,14 @@ const createUser = asyncWrapper(async (req, res, next) => {
 
   await user.save();
 
+  const token = generateToken({ email: user.email },process.env.JWT_SECRET);
+
   res.status(201).json({
     success: true,
     message: "User registered successfully!",
     user,
     stats: stat,
+    token,
   });
 });
 
@@ -63,10 +74,13 @@ const getUser = asyncWrapper(async (req, res, next) => {
 
   const stats = await Stats.findById(user?.status);
 
+  const token = generateToken({ email: user.email },process.env.JWT_SECRET);
+
   res.status(200).json({
     success: true,
     user,
     stats,
+    token,
   });
 });
 

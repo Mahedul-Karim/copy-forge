@@ -1,15 +1,18 @@
 import { User } from "../model/user.js";
 import { asyncWrapper } from "../util/asyncWrapper.js";
 import AppError from "../config/error.js";
+import jwt from "jsonwebtoken";
 
 export const verifyUser = asyncWrapper(async (req, res, next) => {
-  const { email } = req.body;
+  const token = req.cookies.token || req.header("Authorization")?.split(" ")[1];
 
-  if (!email) {
-    return next(new AppError("Invalid request! Please log in again", 400));
+  if (!token) {
+    return next(new AppError("Token is missing. Please login again", 401));
   }
 
-  const user = await User.findOne({ email });
+  const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+
+  const user = await User.findOne({ email: decodedToken.email });
 
   req.user = user;
 
