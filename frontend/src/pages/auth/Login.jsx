@@ -40,7 +40,15 @@ const Login = () => {
       await setPersistence(auth, browserSessionPersistence);
 
       await signInWithEmailAndPassword(auth, email, password);
+    },
+    onSuccess: () => {
       navigate("/");
+    },
+    onError: (err) => {
+      if (err.code === "auth/invalid-credential") {
+        return error("Invalid credential");
+      }
+      error(err.message);
     },
   });
 
@@ -133,7 +141,7 @@ const Login = () => {
             disabled={isLoading}
           >
             <img src="/google.svg" alt="" className="size-5" />
-            {isLoading ? 'Signing in...' : "Google"}
+            {isLoading ? "Signing in..." : "Google"}
           </Button>
         </div>
         <p className="text-sm font-medium text-text-primary">
