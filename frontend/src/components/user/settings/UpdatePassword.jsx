@@ -14,7 +14,7 @@ const UpdatePassword = () => {
           <FloatingInput label="New Password" />
           <FloatingInput label="Confirm Password" />
         </div>
-        <Button>Reset Password</Button>
+        <Button className="font-semibold h-10" >Reset Password</Button>
       </form>
     </div>
   );

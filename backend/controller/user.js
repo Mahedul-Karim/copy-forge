@@ -58,7 +58,7 @@ const createUser = asyncWrapper(async (req, res, next) => {
     success: true,
     message: "User registered successfully!",
     user,
-    stats: stat,
+    stats: stat.packageType,
     token,
   });
 });
@@ -83,7 +83,7 @@ const getUser = asyncWrapper(async (req, res, next) => {
   res.status(200).json({
     success: true,
     user,
-    stats,
+    stats:stats.packageType,
     token,
   });
 });
@@ -104,7 +104,7 @@ const googleSignin = asyncWrapper(async (req, res, next) => {
     return res.status(200).json({
       success: true,
       user: existingUser,
-      stats,
+      stats:stats.packageType,
       token,
     });
   }
@@ -148,7 +148,7 @@ const googleSignin = asyncWrapper(async (req, res, next) => {
   res.status(200).json({
     success: true,
     user,
-    stats,
+    stats:stats.packageType,
     token,
   });
 });

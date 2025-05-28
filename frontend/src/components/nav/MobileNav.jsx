@@ -18,9 +18,9 @@ import { Link } from "react-router";
 import { useSelector } from "react-redux";
 
 const MobileNav = () => {
+  const { user } = useSelector((state) => state.user);
 
-
-  const { user } = useSelector(state=>state.user);
+  const fallbackName = user?.fullName?.split(" ");
 
   return (
     <div className="block md:hidden">
@@ -36,24 +36,26 @@ const MobileNav = () => {
             <SheetDescription className="sr-only">
               This is mobile nav
             </SheetDescription>
-            {user && <div className="p-4 bg-primary/30 flex items-center gap-2 flex-wrap">
-              <Link to="/user" className="shrink-0">
-                <Avatar className="size-11 xs:size-13">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback className="bg-primary text-text-primary font-medium">
-                    CN
-                  </AvatarFallback>
-                </Avatar>
-              </Link>
-              <div>
-                <h3 className="text-sm xs:text-base font-medium text-text-primary">
-                  John Doe
-                </h3>
-                <p className="text-xs xs:text-sm text-text-secondary">
-                  test@gmail.com
-                </p>
+            {user && (
+              <div className="p-4 bg-primary/30 flex items-center gap-2 flex-wrap">
+                <Link to="/user" className="shrink-0">
+                  <Avatar className="size-11 xs:size-13">
+                    <AvatarImage src={user?.avatar?.url} />
+                    <AvatarFallback className="bg-primary text-text-primary font-medium">
+                      {fallbackName?.[0]?.[0] + fallbackName?.at(-1)?.at(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                </Link>
+                <div>
+                  <h3 className="text-sm xs:text-base font-medium text-text-primary">
+                    John Doe
+                  </h3>
+                  <p className="text-xs xs:text-sm text-text-secondary">
+                    test@gmail.com
+                  </p>
+                </div>
               </div>
-            </div>}
+            )}
           </SheetHeader>
           <Nav className="px-4" closeOnClick={true} />
           <SheetFooter className="px-0">

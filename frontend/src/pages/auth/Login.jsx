@@ -52,6 +52,7 @@ const Login = () => {
   /**signin with google */
   const { mutate: googleMutate, isPending: isLoading } = useMutation({
     mutationFn: async () => {
+      await setPersistence(auth, browserSessionPersistence);
       const { user } = await signInWithPopup(auth, googleProvider);
 
       const email = user?.providerData?.[0]?.email;
