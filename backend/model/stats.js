@@ -5,17 +5,17 @@ const statsSchema = new Schema(
     packageType: {
       type: String,
       enum: ["Free", "Premium"],
-      required:true
+      required: true,
     },
     package: {
       type: Schema.Types.ObjectId,
       ref: "Package",
-      required:true
+      required: true,
     },
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required:true
+      required: true,
     },
     usage: {
       dailyLimitUsed: { type: Number, default: 0 },
@@ -33,6 +33,9 @@ const statsSchema = new Schema(
         ref: "Content",
       },
     ],
+    lastResetedAt: {
+      type: Date,
+    },
   },
 
   {

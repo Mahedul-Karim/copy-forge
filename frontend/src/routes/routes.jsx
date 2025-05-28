@@ -59,11 +59,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/user/documents",
-        element: <AllDocuments />,
+        element: (
+          <ProtectedRoutes>
+            <AllDocuments />,
+          </ProtectedRoutes>
+        ),
       },
       {
         path: "/document/create",
-        element: <CreateDocument />,
+        element: (
+          <ProtectedRoutes>
+            <CreateDocument />,
+          </ProtectedRoutes>
+        ),
       },
     ],
   },

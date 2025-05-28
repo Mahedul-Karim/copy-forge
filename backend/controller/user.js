@@ -4,6 +4,10 @@ import { User } from "../model/user.js";
 import { asyncWrapper } from "../util/asyncWrapper.js";
 import AppError from "../config/error.js";
 import { generateToken } from "../util/util.js";
+import {
+  deleteFromCloudinary,
+  uploadToCloudinary,
+} from "../config/cloudinary.js";
 
 const createUser = asyncWrapper(async (req, res, next) => {
   const { email, fullName } = req.body;
@@ -99,7 +103,7 @@ const googleSignin = asyncWrapper(async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      user:existingUser,
+      user: existingUser,
       stats,
       token,
     });
@@ -149,4 +153,37 @@ const googleSignin = asyncWrapper(async (req, res, next) => {
   });
 });
 
-export { createUser, getUser, googleSignin };
+const updateUser = asyncWrapper(async (req, res, next) => {
+  const userId = req.user._id;
+
+  const existingAvatar = req.user.avatar?.public_id || null;
+
+  const data = { ...req.body };
+
+  if (req.file) {
+    if (existingAvatar) {
+      await deleteFromCloudinary(existingAvatar);
+    }
+
+    const result = await uploadToCloudinary(req.file);
+
+    const avatar = {
+      public_id: result.public_id,
+      url: result.secure_url,
+    };
+
+    data.avatar = avatar;
+  }
+
+  const user = await User.findByIdAndUpdate(userId, data, {
+    new: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "User updated successfully",
+    user,
+  });
+});
+
+export { createUser, getUser, googleSignin, updateUser };

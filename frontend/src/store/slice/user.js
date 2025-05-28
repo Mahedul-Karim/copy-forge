@@ -30,8 +30,12 @@ const userSlice = createSlice({
       state.token = null;
       sessionStorage.removeItem("forgeToken");
     },
+    updateUser(state, action) {
+      state.user = action.payload.user;
+    },
   },
 });
 
-export const { setUser, clearLoading,clearUser } = userSlice.actions;
+export const { setUser, clearLoading, clearUser, updateUser } =
+  userSlice.actions;
 export default userSlice.reducer;

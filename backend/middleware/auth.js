@@ -4,7 +4,7 @@ import AppError from "../config/error.js";
 import jwt from "jsonwebtoken";
 
 export const verifyUser = asyncWrapper(async (req, res, next) => {
-  const token = req.cookies.token || req.header("Authorization")?.split(" ")[1];
+  const token = req.cookies?.token || req.header("Authorization")?.split(" ")[1];
 
   if (!token) {
     return next(new AppError("Token is missing. Please login again", 401));

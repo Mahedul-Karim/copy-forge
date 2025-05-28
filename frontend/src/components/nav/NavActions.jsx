@@ -12,6 +12,8 @@ const NavActions = ({ className = "", closeOnClick = false }) => {
 
   const { user } = useSelector((state) => state.user);
 
+  const fallbackName = user?.fullName?.split(" ");
+
   return (
     <div
       className={`flex items-center flex-col md:flex-row gap-[6px] xs:gap-[10px] ${className}`}
@@ -36,8 +38,10 @@ const NavActions = ({ className = "", closeOnClick = false }) => {
       ) : (
         <Link to="/user" className="hidden md:inline-block">
           <Avatar className="size-10">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src={user?.avatar?.url} />
+            <AvatarFallback >
+              {fallbackName?.[0]?.[0] + fallbackName?.at(-1)?.at(0)}
+            </AvatarFallback>
           </Avatar>
         </Link>
       )}
