@@ -6,6 +6,8 @@ import { configCloudinary } from "./config/cloudinary.js";
 import { connectDB } from "./config/db.js";
 import { userRoutes } from "./routes/user.js";
 import { packageRoutes } from "./routes/package.js";
+import { statsRoutes } from "./routes/stats.js";
+import { contentRoutes } from "./routes/contents.js";
 
 dotenv.config({ path: "./.env.local" });
 
@@ -34,6 +36,8 @@ configCloudinary();
 
 app.use("/user", userRoutes);
 app.use("/package", packageRoutes);
+app.use("/stats", statsRoutes);
+app.use("/contents", contentRoutes);
 
 app.use(handleError);
 

@@ -35,6 +35,17 @@ const statsSchema = new Schema(
     ],
     lastResetedAt: {
       type: Date,
+      default: () => Date.now(),
+    },
+    purchasedAt: {
+      type: Date,
+    },
+    renewedAt: {
+      type: Date,
+    },
+    isAutoRenewable: {
+      type: Boolean,
+      default: false,
     },
   },
 

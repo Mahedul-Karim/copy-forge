@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueries } from "@tanstack/react-query";
 import React from "react";
 
 export const useData = ({ queryKey, endpoint }) => {
@@ -10,4 +10,14 @@ export const useData = ({ queryKey, endpoint }) => {
   });
 
   return res;
+};
+
+export const useDatas = ({ queries }) => {
+  return useQueries({
+    queries: queries.map(({ queryKey, endpoint }) => ({
+      queryKey,
+      queryFn: () => api({ endpoint, options: { method: "GET" } }),
+      retry: false,
+    })),
+  });
 };

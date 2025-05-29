@@ -8,6 +8,9 @@ import { useDispatch } from "react-redux";
 import { signOut } from "firebase/auth";
 import { auth } from "@/config/firebase.config";
 import { clearUser } from "@/store/slice/user";
+import { useDatas } from "@/hooks/useData";
+import Loader from "@/components/common/loader/Loader";
+import Empty from "@/components/common/Empty";
 
 const stats = [
   {
@@ -47,6 +50,25 @@ const Overview = () => {
     dispatch(clearUser());
   };
 
+  const queries = [
+    {
+      queryKey: ["userStats"],
+      endpoint: "stats",
+    },
+    {
+      queryKey: ["userDocuments"],
+      endpoint: "contents",
+    },
+  ];
+
+  const [statsData, documentData] = useDatas({ queries });
+
+  const { data, isPending } = statsData;
+  const { data: allContents, isPending: isContentPending } = documentData;
+
+  const usage = data?.stats?.usage;
+  const limits = data?.stats?.limits;
+
   return (
     <section className="flex flex-col gap-3">
       <div className="flex flex-col xs:flex-row xs:justify-end items-center gap-4 order-3 xs:order-1">
@@ -63,21 +85,52 @@ const Overview = () => {
           <LogOut /> Log Out
         </Button>
       </div>
-      <div className="order-1 xs:order-2 bg-paper p-4 dark:bg-background rounded-xl">
-        <section className="grid md:grid-cols-2 gap-4">
-          {stats.length > 0 &&
-            stats.map((state, i) => (
+
+      {isPending || isContentPending ? (
+        <div className="h-[250px] xs:h-[500px] flex items-center justify-center order-1 xs:order-2">
+          <Loader />
+        </div>
+      ) : (
+        <>
+          <div className="order-1 xs:order-2 bg-paper p-4 dark:bg-background rounded-xl">
+            <section className="grid md:grid-cols-2 gap-4">
               <StateCard
-                key={i}
-                Icon={state.icon}
-                title={state.title}
-                subtitle={state.subtitle}
-                count={state.count}
+                Icon={Clock}
+                subtitle={"Today"}
+                title={"Daily Limit Available"}
+                count={limits?.dailyLimit - usage?.dailyLimitUsed}
               />
-            ))}
-        </section>
-      </div>
-      <RecentDocuments />
+              <StateCard
+                Icon={Scroll}
+                subtitle={"This Month"}
+                title={"Documents Created"}
+                count={usage?.totalContentUsed}
+              />
+              <StateCard
+                Icon={Save}
+                subtitle={"This Month"}
+                title={"Saves Available"}
+                count={limits?.saveLimit - usage?.saveLimitUsed}
+              />
+              <StateCard
+                Icon={FileText}
+                subtitle={"This Month"}
+                title={"Total Documents Available"}
+                count={limits?.totalContentLimit - usage?.totalContentUsed}
+              />
+            </section>
+          </div>
+
+          {allContents?.contents?.length === 0 ? (
+            <Empty
+              title={"No documents found!"}
+              className="order-2 xs:order-3"
+            />
+          ) : (
+            <RecentDocuments contents={allContents?.contents} />
+          )}
+        </>
+      )}
     </section>
   );
 };
