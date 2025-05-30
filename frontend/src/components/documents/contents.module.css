@@ -1,0 +1,51 @@
+
+#content {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.75;
+  color: #1f2937; 
+  padding: 1rem;
+}
+
+#content h1 {
+  font-size: 2rem; 
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  color: #111827; 
+}
+
+#content h2 {
+  font-size: 1.5rem; 
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: #1f2937; 
+}
+
+#content p {
+  margin-bottom: 1rem;
+  color: #374151; 
+}
+
+
+#content strong {
+  font-weight: 600;
+}
+
+:global(.dark) #content {
+  color: #d1d5db; 
+  background-color: #111827; 
+}
+
+:global(.dark) #content h1 {
+  color: #f9fafb; 
+}
+
+:global(.dark) #content h2 {
+  color: #e5e7eb; 
+}
+
+:global(.dark) #content p {
+  color: #d1d5db; 
+}
+

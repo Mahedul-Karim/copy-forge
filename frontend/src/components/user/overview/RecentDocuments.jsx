@@ -2,25 +2,14 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import React from "react";
 import { Link } from "react-router";
 
-import { Pencil, Trash,  ArrowDown, Layers } from "lucide-react";
+import { Pencil, Trash, ArrowDown, Layers } from "lucide-react";
 
 import { formateDate } from "@/lib/utils";
 import DataTable from "@/components/common/data/DataTable";
 
-const data = [
-  {
-    name: "10 useEffect uses",
-    createdAt: new Date(Date.now() * Math.round(Math.random() * 5)),
-  },
-  {
-    name: "10 usefull react hooks uses",
-    createdAt: new Date(Date.now() * Math.round(Math.random() * 5)),
-  },
-];
-
 const columns = [
   {
-    accessorKey: "name",
+    accessorKey: "topic",
     header: ({ column }) => {
       return (
         <Button
@@ -33,7 +22,7 @@ const columns = [
       );
     },
     cell: ({ row }) => {
-      const value = row.getValue("name");
+      const value = row.getValue("topic");
       return (
         <p className="font-semibold flex items-center gap-3">
           <Layers className="size-5 text-primary" />
@@ -84,8 +73,7 @@ const columns = [
   },
 ];
 
-const RecentDocuments = () => {
-  
+const RecentDocuments = ({ contents }) => {
   return (
     <section className="order-2 xs:order-3">
       <div className="flex items-center justify-between">
@@ -99,7 +87,7 @@ const RecentDocuments = () => {
           View All
         </Link>
       </div>
-      <DataTable data={data} columns={columns} />
+      <DataTable data={contents} columns={columns} />
     </section>
   );
 };

@@ -1,17 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import ReactMarkdown from "react-markdown";
+
+import styles from "./contents.module.css";
+
+import Prism from "prismjs";
+
+import "prismjs/themes/prism-tomorrow.css";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-java";
+import "prismjs/components/prism-c";
+import "prismjs/components/prism-cpp";
+import "prismjs/components/prism-csharp";
+import "prismjs/components/prism-aspnet";
+import "prismjs/components/prism-sass";
+import "prismjs/components/prism-jsx";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-solidity";
+import "prismjs/components/prism-json";
+import "prismjs/components/prism-dart";
+import "prismjs/components/prism-ruby";
+import "prismjs/components/prism-rust";
+import "prismjs/components/prism-r";
+import "prismjs/components/prism-kotlin";
+import "prismjs/components/prism-go";
+import "prismjs/components/prism-bash";
+import "prismjs/components/prism-sql";
+import "prismjs/components/prism-mongodb";
+import "prismjs/plugins/line-numbers/prism-line-numbers.js";
+import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
 const Contents = () => {
-  const { document:aiDoc } = useSelector((state) => state.content);
+  const { document: aiDoc } = useSelector((state) => state.content);
 
-  const data = aiDoc?.match(/^```markdown\n([\s\S]*)\n```$/)
+  const contentRef = useRef(null);
 
-  
+  useEffect(() => {
+    if (!contentRef.current) return;
+
+    const codeBlocks = contentRef.current.querySelectorAll("pre");
+
+    codeBlocks.forEach((codeBlock) => {
+      codeBlock.classList.add(`language-javascript`);
+    });
+  }, [aiDoc]);
+
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [aiDoc]);
 
   return (
-    <main className="py-4 pl-4 h-[500px] overflow-auto order-1 sm:order-2">
-      {!data?.[1] ? (
+    <main className="py-4 pl-1 xs:pl-4 h-[500px] overflow-auto order-1 sm:order-2">
+      {!aiDoc ? (
         <section className="h-full flex flex-col items-center justify-center gap-1">
           <svg
             viewBox="0 0 24 24"
@@ -41,9 +80,13 @@ const Contents = () => {
           </p>
         </section>
       ) : (
-        <div>
-          <ReactMarkdown>{data?.[1]}</ReactMarkdown>
-        </div>
+        <div
+          id={styles.content}
+          ref={contentRef}
+          dangerouslySetInnerHTML={{
+            __html: aiDoc,
+          }}
+        ></div>
       )}
     </main>
   );

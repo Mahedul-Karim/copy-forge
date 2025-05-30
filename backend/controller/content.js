@@ -3,6 +3,7 @@ import { asyncWrapper } from "../util/asyncWrapper.js";
 import AppError from "../config/error.js";
 import { Stats } from "../model/stats.js";
 import { initializeAi } from "../config/gemini.js";
+import { extractHTMLContent } from "../util/util.js";
 
 export const getRecentContents = asyncWrapper(async (req, res, next) => {
   const userId = req.user._id;
@@ -55,10 +56,14 @@ export const generateContent = asyncWrapper(async (req, res, next) => {
 
   const prompt = `Generate a comprehensive and engaging article on the topic of '${topic}'.
     Incorporate the following keywords naturally: ${
-      keywords.length > 0 ? keywords.join(", ") : "none"
+      keywords && keywords.length > 0 ? keywords.join(", ") : "none"
     }.
     The content should be in ${language} and written in a ${writingStyle} tone.
-    Ensure the output is in Markdown format, including headings, paragraphs, lists, bold/italic text, and any other relevant formatting for an article.`;
+    Ensure the output is in pure HTML string format.
+    Crucially, **DO NOT include <html>, <head>, or <body> tags**.
+    Only provide the content that would typically go inside the <body>,
+    including appropriate HTML tags for headings (e.g., <h1>, <h2>), paragraphs (<p>),
+    lists (<ul>, <ol>, <li>), bold (<strong>), italic (<em>), and any other relevant HTML formatting for an article.`;
 
   const model = await initializeAi();
 
@@ -69,12 +74,14 @@ export const generateContent = asyncWrapper(async (req, res, next) => {
   stats.usage.dailyLimitUsed = dailyLimitUsed + 1;
   stats.usage.totalContentUsed = totalContentUsed + 1;
 
+  const cleanedContent = extractHTMLContent(content);
+
   if (saveLimitUsed >= saveLimit) {
     await stats.save();
     return res.status(201).json({
       success: true,
       content: {
-        document: content,
+        document: cleanedContent,
       },
       message:
         "Your generated content has not been saved because you have already used monthly save limit",
@@ -86,7 +93,7 @@ export const generateContent = asyncWrapper(async (req, res, next) => {
     keywords,
     language,
     writingStyle,
-    document: content,
+    document: cleanedContent,
     creator: userId,
   });
 
