@@ -29,6 +29,7 @@ const userSlice = createSlice({
       state.user = null;
       state.stats = null;
       state.token = null;
+      state.creditCard = [];
       sessionStorage.removeItem("forgeToken");
     },
     updateUser(state, action) {
@@ -42,6 +43,12 @@ const userSlice = createSlice({
         (card) => card._id !== action.payload
       );
     },
+    setAutoBilling(state, action) {
+      state.user.autoBilling = action.payload;
+    },
+    setAutoBillingCard(state, action) {
+      state.user.autoBillingCard = action.payload;
+    },
   },
 });
 
@@ -52,5 +59,7 @@ export const {
   updateUser,
   updateCard,
   filterCard,
+  setAutoBilling,
+  setAutoBillingCard,
 } = userSlice.actions;
 export default userSlice.reducer;

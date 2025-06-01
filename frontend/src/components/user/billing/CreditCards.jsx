@@ -26,7 +26,7 @@ const CreditCards = ({
       <CardContent className="flex flex-col xs:flex-row xs:items-center gap-4">
         <div
           className={`${
-            cardType === "master" ? "bg-red-500" : "bg-blue-500"
+            cardType === "mastercard" ? "bg-red-500" : "bg-blue-500"
           }  size-12 rounded-lg shrink-0`}
         >
           <img src={`/${cardType}.png`} alt="" />

@@ -37,6 +37,7 @@ const userSchema = new Schema(
     },
     autoBillingCard: {
       type: Schema.Types.ObjectId,
+      ref: "Cards",
     },
     creditCard: [
       {

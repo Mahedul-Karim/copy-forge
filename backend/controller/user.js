@@ -66,7 +66,7 @@ const createUser = asyncWrapper(async (req, res, next) => {
 const getUser = asyncWrapper(async (req, res, next) => {
   const { email } = req.body;
 
-  const user = await User.findOne({ email }).populate('creditCard');
+  const user = await User.findOne({ email }).populate("creditCard");
 
   if (!user) {
     return res.status(200).json({
@@ -83,7 +83,7 @@ const getUser = asyncWrapper(async (req, res, next) => {
   res.status(200).json({
     success: true,
     user,
-    stats:stats.packageType,
+    stats: stats.packageType,
     token,
   });
 });
@@ -91,7 +91,7 @@ const getUser = asyncWrapper(async (req, res, next) => {
 const googleSignin = asyncWrapper(async (req, res, next) => {
   const { email, fullName } = req.body;
 
-  const existingUser = await User.findOne({ email }).populate('creditCard');
+  const existingUser = await User.findOne({ email }).populate("creditCard");
 
   if (existingUser) {
     const stats = await Stats.findById(existingUser?.status);
@@ -104,7 +104,7 @@ const googleSignin = asyncWrapper(async (req, res, next) => {
     return res.status(200).json({
       success: true,
       user: existingUser,
-      stats:stats.packageType,
+      stats: stats.packageType,
       token,
     });
   }
@@ -148,7 +148,7 @@ const googleSignin = asyncWrapper(async (req, res, next) => {
   res.status(200).json({
     success: true,
     user,
-    stats:stats.packageType,
+    stats: stats.packageType,
     token,
   });
 });
@@ -186,4 +186,41 @@ const updateUser = asyncWrapper(async (req, res, next) => {
   });
 });
 
-export { createUser, getUser, googleSignin, updateUser };
+const setAutoBilling = asyncWrapper(async (req, res) => {
+  const userId = req.user._id;
+
+  const { setBilling } = req.body;
+
+  await User.findByIdAndUpdate(userId, {
+    autoBilling: setBilling,
+  });
+
+  res.status(200).json({
+    success: true,
+    isAutoBilling: setBilling,
+  });
+});
+
+const selectCard = asyncWrapper(async (req, res) => {
+  const userId = req.user._id;
+
+  const { selectedCardId } = req.body;
+
+  await User.findByIdAndUpdate(userId, {
+    autoBillingCard: selectedCardId,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Card selected successfully!",
+  });
+});
+
+export {
+  createUser,
+  getUser,
+  googleSignin,
+  updateUser,
+  setAutoBilling,
+  selectCard,
+};
