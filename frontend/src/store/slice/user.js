@@ -6,6 +6,7 @@ const initialState = {
   loading: true,
   token: null,
   creditCard: [],
+  selectedCard: null,
 };
 
 const userSlice = createSlice({
@@ -18,6 +19,7 @@ const userSlice = createSlice({
       state.loading = false;
       state.token = action.payload.token;
       state.creditCard = action.payload.user.creditCard || [];
+      state.selectedCard = action.payload.user.autoBillingCard || null;
       if (action.payload.token) {
         sessionStorage.setItem("forgeToken", action.payload.token);
       }
@@ -30,6 +32,7 @@ const userSlice = createSlice({
       state.stats = null;
       state.token = null;
       state.creditCard = [];
+      state.selectedCard = null;
       sessionStorage.removeItem("forgeToken");
     },
     updateUser(state, action) {
@@ -48,6 +51,11 @@ const userSlice = createSlice({
     },
     setAutoBillingCard(state, action) {
       state.user.autoBillingCard = action.payload;
+      state.selectedCard = action.payload;
+    },
+    removeSelectedCard(state) {
+      state.selectedCard = null;
+      state.user.autoBillingCard = null;
     },
   },
 });
@@ -61,5 +69,6 @@ export const {
   filterCard,
   setAutoBilling,
   setAutoBillingCard,
+  removeSelectedCard,
 } = userSlice.actions;
 export default userSlice.reducer;

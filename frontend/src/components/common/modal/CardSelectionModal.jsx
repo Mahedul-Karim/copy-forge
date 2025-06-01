@@ -27,7 +27,7 @@ const CardSelectionModal = ({ open, setOpen }) => {
   const { mutate, isPending } = useServer({
     onSuccess: (data) => {
       toast.success(data?.message);
-      dispatch(setAutoBillingCard(selectedCardId));
+      dispatch(setAutoBillingCard(data?.card));
       setOpen(false);
       setSelectedCardId("");
     },

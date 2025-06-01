@@ -7,6 +7,9 @@ import MyCards from "./MyCards";
 import { useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
 import CardSelectionModal from "@/components/common/modal/CardSelectionModal";
+import { useData } from "../../../hooks/useData";
+import Loader from "@/components/common/loader/Loader";
+import SelectedCard from "./SelectedCard";
 
 const Billings = () => {
   const { user } = useSelector((state) => state.user);
@@ -15,6 +18,19 @@ const Billings = () => {
 
   const needsAutoBillingCardSelection =
     user?.creditCard?.length > 1 && user?.autoBilling && !user?.autoBillingCard;
+
+  const { data, isPending } = useData({
+    queryKey: ["userPackages", user._id],
+    endpoint: "stats/package",
+  });
+
+  if (isPending) {
+    return (
+      <div className="h-[250px] xs:h-[500px] flex items-center justify-center order-1 xs:order-2">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <section>
@@ -47,9 +63,10 @@ const Billings = () => {
           </Alert>
         </>
       )}
-      <CurrentSubscription />
+      <CurrentSubscription stats={data?.stats?.package} />
       <BillingSetting />
       <MyCards />
+      <SelectedCard />
       <CardSelectionModal open={open} setOpen={setOpen} />
     </section>
   );

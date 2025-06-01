@@ -19,6 +19,11 @@ https://copy-forge.vercel.app/
 | ---- | -------------- | -------- |
 | User | test@gmail.com | test1234 |
 
+| Card | Number          | 
+| ---- | -------------- | 
+| visa | 4242 4242 4242 4242 | 
+| master | 5555 5555 5555 4444 | 
+
 ## ⚛️ NPM Packages Used
 
 - **React Js:** - Used react js js to create the whole application.

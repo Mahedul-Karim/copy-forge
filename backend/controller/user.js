@@ -1,6 +1,7 @@
 import { Package } from "../model/package.js";
 import { Stats } from "../model/stats.js";
 import { User } from "../model/user.js";
+import { Cards } from "../model/creditCard.js";
 import { asyncWrapper } from "../util/asyncWrapper.js";
 import AppError from "../config/error.js";
 import { generateToken } from "../util/util.js";
@@ -66,7 +67,9 @@ const createUser = asyncWrapper(async (req, res, next) => {
 const getUser = asyncWrapper(async (req, res, next) => {
   const { email } = req.body;
 
-  const user = await User.findOne({ email }).populate("creditCard");
+  const user = await User.findOne({ email })
+    .populate("creditCard")
+    .populate("autoBillingCard");
 
   if (!user) {
     return res.status(200).json({
@@ -91,7 +94,9 @@ const getUser = asyncWrapper(async (req, res, next) => {
 const googleSignin = asyncWrapper(async (req, res, next) => {
   const { email, fullName } = req.body;
 
-  const existingUser = await User.findOne({ email }).populate("creditCard");
+  const existingUser = await User.findOne({ email })
+    .populate("creditCard")
+    .populate("autoBillingCard");
 
   if (existingUser) {
     const stats = await Stats.findById(existingUser?.status);
@@ -210,9 +215,25 @@ const selectCard = asyncWrapper(async (req, res) => {
     autoBillingCard: selectedCardId,
   });
 
+  const card = await Cards.findById(selectedCardId);
+
   res.status(200).json({
     success: true,
     message: "Card selected successfully!",
+    card,
+  });
+});
+
+const removeSelectedCard = asyncWrapper(async (req, res) => {
+  const userId = req.user._id;
+
+  await User.findByIdAndUpdate(userId, {
+    autoBillingCard: null,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Card removed successfully!",
   });
 });
 
@@ -223,4 +244,5 @@ export {
   updateUser,
   setAutoBilling,
   selectCard,
+  removeSelectedCard,
 };

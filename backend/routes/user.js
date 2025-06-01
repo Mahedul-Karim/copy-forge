@@ -4,6 +4,7 @@ import {
   createUser,
   getUser,
   googleSignin,
+  removeSelectedCard,
   selectCard,
   setAutoBilling,
   updateUser,
@@ -21,6 +22,7 @@ router.route("/google").post(googleSignin);
 router
   .route("/billing")
   .post(verifyUser, setAutoBilling)
-  .patch(verifyUser, selectCard);
+  .patch(verifyUser, selectCard)
+  .delete(verifyUser,removeSelectedCard);
 
 export const userRoutes = router;

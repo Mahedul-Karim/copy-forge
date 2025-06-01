@@ -48,3 +48,16 @@ export const getStats = asyncWrapper(async (req, res, next) => {
     stats,
   });
 });
+
+export const getUserPackage = asyncWrapper(async (req, res) => {
+  const userId = req.user._id;
+
+  const stats = await Stats.findOne({ user: userId })
+    .select("package renewedAt")
+    .populate("package");
+
+  res.status(200).json({
+    success: true,
+    stats,
+  });
+});
