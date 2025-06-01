@@ -43,6 +43,14 @@ export const handleError = (err, req, res, next) => {
     error = new AppError(message, 429);
   }
 
+  if (
+    err.code === "authentication_required" ||
+    (err.payment_intent && err.payment_intent.status === "requires_action")
+  ) {
+    const message = "Authentication required. Please use another card";
+    error = new AppError(message, 401);
+  }
+
   res.status(status).json({
     success: false,
     message: error.message || "Internel Server error",

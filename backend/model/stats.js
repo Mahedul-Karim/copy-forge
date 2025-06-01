@@ -47,6 +47,9 @@ const statsSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    customerId:{
+      type:String
+    }
   },
 
   {

@@ -2,9 +2,9 @@ import { api } from "@/lib/api";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
 
-export const useServer = ({ onSuccess, onError, ...props }) => {
+export const useServer = ({ handleMutate, onSuccess, onError, ...props }) => {
   const res = useMutation({
-    mutationFn: ({ endpoint, options }) => api({ endpoint, options }),
+    mutationFn: handleMutate ? handleMutate : ({ endpoint, options }) => api({ endpoint, options }),
     onSuccess,
     onError,
     ...props,

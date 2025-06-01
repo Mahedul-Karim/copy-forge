@@ -6,6 +6,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./config/firebase.config";
 import { useDispatch } from "react-redux";
 import { clearLoading, setUser } from "./store/slice/user";
+import { Toaster } from "./components/ui/sonner";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      <Toaster  richColors position="bottom-right"/>
     </>
   );
 }

@@ -4,16 +4,25 @@ const cardSchema = new Schema(
   {
     cardType: {
       type: String,
-      enum: ["Visa", "Master"],
       required: true,
     },
-    cardNumber: {
+    lastFourNumber: {
       type: String,
       required: true,
     },
-    cardExpiryDate: {
-      type: Date,
+    exp_month: {
+      type: Number,
     },
+    exp_year:{
+      type:Number
+    },
+    paymentMethodId: {
+      type: String,
+    },
+    user:{
+      type:Schema.Types.ObjectId,
+      ref:'User'
+    }
   },
 
   {

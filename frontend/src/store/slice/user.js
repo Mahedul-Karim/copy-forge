@@ -5,6 +5,7 @@ const initialState = {
   stats: null,
   loading: true,
   token: null,
+  creditCard: [],
 };
 
 const userSlice = createSlice({
@@ -16,7 +17,7 @@ const userSlice = createSlice({
       state.stats = action.payload.stats;
       state.loading = false;
       state.token = action.payload.token;
-
+      state.creditCard = action.payload.user.creditCard || [];
       if (action.payload.token) {
         sessionStorage.setItem("forgeToken", action.payload.token);
       }
@@ -33,9 +34,12 @@ const userSlice = createSlice({
     updateUser(state, action) {
       state.user = action.payload.user;
     },
+    updateCard(state, action) {
+      state.creditCard.push(action.payload);
+    },
   },
 });
 
-export const { setUser, clearLoading, clearUser, updateUser } =
+export const { setUser, clearLoading, clearUser, updateUser,updateCard } =
   userSlice.actions;
 export default userSlice.reducer;

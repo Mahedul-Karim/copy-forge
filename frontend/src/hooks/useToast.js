@@ -1,29 +1,17 @@
-import React from 'react'
-import Swal from 'sweetalert2';
+import React from "react";
+import { toast } from "sonner";
 
 export const useToast = () => {
-  const setAlert = (type, title) => {
-    Swal.fire({
-      title: title,
-      icon: type,
-      confirmButtonColor: "#ffd65a",
-      customClass:{
-        popup:'!bg-background dark:!bg-paper',
-        title:'!text-text-primary'
-      }
-    });
-  };
-
   const success = (title) => {
-    setAlert("success", title);
+    toast.success(title);
   };
 
   const warning = (title) => {
-    setAlert("warning", title);
+    toast.warning(title);
   };
   const error = (title) => {
-    setAlert("error", title);
+    toast.error(title);
   };
 
   return { success, warning, error };
-}
+};

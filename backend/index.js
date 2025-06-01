@@ -8,6 +8,7 @@ import { userRoutes } from "./routes/user.js";
 import { packageRoutes } from "./routes/package.js";
 import { statsRoutes } from "./routes/stats.js";
 import { contentRoutes } from "./routes/contents.js";
+import { paymentRoutes } from "./routes/payment.js";
 
 dotenv.config({ path: "./.env.local" });
 
@@ -38,6 +39,7 @@ app.use("/user", userRoutes);
 app.use("/package", packageRoutes);
 app.use("/stats", statsRoutes);
 app.use("/contents", contentRoutes);
+app.use("/payment", paymentRoutes);
 
 app.use(handleError);
 

@@ -66,7 +66,7 @@ const createUser = asyncWrapper(async (req, res, next) => {
 const getUser = asyncWrapper(async (req, res, next) => {
   const { email } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).populate('creditCard');
 
   if (!user) {
     return res.status(200).json({
@@ -91,7 +91,7 @@ const getUser = asyncWrapper(async (req, res, next) => {
 const googleSignin = asyncWrapper(async (req, res, next) => {
   const { email, fullName } = req.body;
 
-  const existingUser = await User.findOne({ email });
+  const existingUser = await User.findOne({ email }).populate('creditCard');
 
   if (existingUser) {
     const stats = await Stats.findById(existingUser?.status);
