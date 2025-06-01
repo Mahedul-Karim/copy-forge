@@ -55,8 +55,7 @@ const DeleteSelectionModal = ({
             Are you absolutely sure?
           </AlertDialogTitle>
           <AlertDialogDescription className="text-text-secondary">
-            This action cannot be undone. This will permanently delete your card
-            info and remove your card data from our servers.
+            This action cannot be undone. This will remove your selected card for autobilling.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

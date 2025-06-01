@@ -10,7 +10,7 @@ export const buyPackage = asyncWrapper(async (req, res, next) => {
 
   const userId = req.user._id;
 
-  const { amount, cardId } = req.body;
+  const cardId = req.body?.cardId;
 
   let customerId;
   let paymentMethodId;
@@ -30,16 +30,17 @@ export const buyPackage = asyncWrapper(async (req, res, next) => {
 
   const paymentIntents = await stripe.paymentIntents.create({
     currency: "usd",
-    amount: amount * 100,
+    amount: 20 * 100,
     automatic_payment_methods: {
       enabled: true,
     },
-    ...(cardId && {
-      payment_method: paymentMethodId,
-      customer: customerId,
-      off_session: true,
-      confirm: true,
-    }),
+    ...(customerId &&
+      paymentMethodId && {
+        payment_method: paymentMethodId,
+        customer: customerId,
+        off_session: true,
+        confirm: true,
+      }),
   });
 
   const resObject = {};
@@ -58,7 +59,10 @@ export const buyPackage = asyncWrapper(async (req, res, next) => {
 
 export const purchaseSuccess = asyncWrapper(async (req, res) => {
   console.log("Payment was successfull!");
-  res.send("Hello World");
+  res.status(200).json({
+    success: true,
+    message: "Package purchase was successfull",
+  });
 });
 
 export const setupIntent = asyncWrapper(async (req, res, next) => {
