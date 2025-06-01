@@ -12,32 +12,6 @@ import { useDatas } from "@/hooks/useData";
 import Loader from "@/components/common/loader/Loader";
 import Empty from "@/components/common/Empty";
 
-const stats = [
-  {
-    count: 3,
-    subtitle: "Today",
-    title: "Daily Limit Available",
-    icon: Clock,
-  },
-  {
-    count: 43,
-    subtitle: "This Month",
-    title: "Documents Created",
-    icon: Scroll,
-  },
-  {
-    count: 10,
-    subtitle: "This Month",
-    title: "Saves Available",
-    icon: Save,
-  },
-  {
-    count: 20,
-    subtitle: "This Month",
-    title: "Total Documents Available",
-    icon: FileText,
-  },
-];
 
 const Overview = () => {
   const navigate = useNavigate();

@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useServer } from "@/hooks/useServer";
 import { api } from "@/lib/api";
+import { updateStats } from "@/store/slice/user";
 import {
   CardCvcElement,
   CardExpiryElement,
@@ -9,16 +10,21 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import { useQueryClient } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 
 const PurchaseForm = ({ setOpen }) => {
   const elements = useElements();
   const stripe = useStripe();
 
+  const dispatch = useDispatch();
+
   const { isDarkMode } = useSelector((state) => state.dark);
+
+  const queryClient = useQueryClient();
 
   const { mutate, isPending } = useServer({
     handleMutate: async () => {
@@ -51,6 +57,9 @@ const PurchaseForm = ({ setOpen }) => {
     },
     onSuccess: (data) => {
       toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: ["userStats"] });
+      dispatch(updateStats());
+      queryClient.refetchQueries({queryKey:["userPackages"]});
     },
     onError: (err) => {
       toast.error(err?.message);

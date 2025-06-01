@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Empty from "../Empty";
 import CardSelection from "../button/CardSelection";
 import { Button } from "@/components/ui/button";
@@ -7,9 +7,15 @@ import { useServer } from "@/hooks/useServer";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
 import { Loader } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { updateStats } from "@/store/slice/user";
 
 const SavedCards = ({ setOpen }) => {
   const { creditCard } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  const queryClient = useQueryClient();
 
   const [selectedCardId, setSelectedCardId] = useState("");
 
@@ -42,6 +48,9 @@ const SavedCards = ({ setOpen }) => {
     },
     onSuccess: (data) => {
       toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: ["userStats"] });
+      dispatch(updateStats());
+      queryClient.refetchQueries({ queryKey: ["userPackages"] });
     },
     onError: (err) => {
       toast.error(err?.message);

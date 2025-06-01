@@ -57,6 +57,9 @@ const userSlice = createSlice({
       state.selectedCard = null;
       state.user.autoBillingCard = null;
     },
+    updateStats(state) {
+      state.stats = "Premium";
+    },
   },
 });
 
@@ -70,5 +73,6 @@ export const {
   setAutoBilling,
   setAutoBillingCard,
   removeSelectedCard,
+  updateStats,
 } = userSlice.actions;
 export default userSlice.reducer;

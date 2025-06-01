@@ -1,6 +1,7 @@
 import AppError from "../config/error.js";
 import { Cards } from "../model/creditCard.js";
 import { User } from "../model/user.js";
+import { Package } from "../model/package.js";
 import { Stats } from "../model/stats.js";
 import { asyncWrapper } from "../util/asyncWrapper.js";
 import Stripe from "stripe";
@@ -58,10 +59,46 @@ export const buyPackage = asyncWrapper(async (req, res, next) => {
 });
 
 export const purchaseSuccess = asyncWrapper(async (req, res) => {
-  console.log("Payment was successfull!");
+  const userId = req.user._id;
+
+  const pricing = await Package.findOne({ type: "Premium" });
+
+  const limits = {};
+
+  for (const feature of pricing.features) {
+    if (feature.key === "dailyLimit") {
+      limits.dailyLimit = feature.value;
+    }
+
+    if (feature.key === "saveLimit") {
+      limits.saveLimit = feature.value;
+    }
+
+    if (feature.key === "totalContentLimit") {
+      limits.totalContentLimit = feature.value;
+    }
+  }
+
+  const stats = await Stats.findOneAndUpdate(
+    { user: userId },
+    {
+      package: pricing._id,
+      packageType: "Premium",
+      limits,
+      purchasedAt: new Date(),
+      renewedAt: new Date(),
+    },
+    {
+      new: true,
+    }
+  )
+    .select("package renewedAt")
+    .populate("package");
+
   res.status(200).json({
     success: true,
     message: "Package purchase was successfull",
+    stats,
   });
 });
 
