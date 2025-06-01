@@ -37,9 +37,20 @@ const userSlice = createSlice({
     updateCard(state, action) {
       state.creditCard.push(action.payload);
     },
+    filterCard(state, action) {
+      state.creditCard = state.creditCard.filter(
+        (card) => card._id !== action.payload
+      );
+    },
   },
 });
 
-export const { setUser, clearLoading, clearUser, updateUser,updateCard } =
-  userSlice.actions;
+export const {
+  setUser,
+  clearLoading,
+  clearUser,
+  updateUser,
+  updateCard,
+  filterCard,
+} = userSlice.actions;
 export default userSlice.reducer;

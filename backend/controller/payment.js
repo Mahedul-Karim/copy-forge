@@ -73,7 +73,7 @@ export const setupIntent = asyncWrapper(async (req, res, next) => {
   if (!customerId) {
     const customer = await stripe.customers.create({
       metadata: { userId: userId?.toString() },
-      name: req.user.name,
+      name: req.user.fullName,
       email: req.user.email,
     });
     stats.customerId = customer.id;
@@ -132,5 +132,30 @@ export const savePaymentMethod = asyncWrapper(async (req, res) => {
     success: true,
     message: "Card added successfully!",
     card,
+  });
+});
+
+export const deleteCard = asyncWrapper(async (req, res) => {
+  const userId = req.user._id;
+
+  const stripe = new Stripe(process.env.STRIPE_SECRET);
+
+  const { cardId, paymentMethodId } = req.body;
+
+  const stripePromise = stripe.paymentMethods.detach(paymentMethodId);
+
+  const cardsPromise = Cards.findByIdAndDelete(cardId);
+
+  const userPromise = User.findByIdAndUpdate(userId, {
+    $pull: {
+      creditCard: cardId,
+    },
+  });
+
+  await Promise.all([stripePromise, cardsPromise, userPromise]);
+
+  res.status(200).json({
+    success: true,
+    message: "Card deleted successfully",
   });
 });
