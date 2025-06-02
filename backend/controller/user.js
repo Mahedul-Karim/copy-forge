@@ -2,6 +2,7 @@ import { Package } from "../model/package.js";
 import { Stats } from "../model/stats.js";
 import { User } from "../model/user.js";
 import { Cards } from "../model/creditCard.js";
+import Stripe from "stripe";
 import { asyncWrapper } from "../util/asyncWrapper.js";
 import AppError from "../config/error.js";
 import { generateToken } from "../util/util.js";
@@ -237,6 +238,103 @@ const removeSelectedCard = asyncWrapper(async (req, res) => {
   });
 });
 
+const checkStats = asyncWrapper(async (req, res) => {
+  const stripe = new Stripe(process.env.STRIPE_SECRET);
+
+  const userId = req.user._id;
+
+  const stats = await Stats.findOne({ user: userId });
+
+  if (stats.packageType === "Free") {
+    return res.status(200).json({
+      success: true,
+    });
+  }
+
+  const now = new Date();
+  const oneMonth = 30 * 24 * 60 * 60 * 1000;
+
+  const renewedAt = stats?.renewedAt;
+
+  if (!renewedAt) {
+    return res.status(200).json({
+      success: true,
+    });
+  }
+
+  const timeSinceRenewed = now.getTime() - new Date(renewedAt).getTime();
+
+  if (timeSinceRenewed <= oneMonth) {
+    return res.status(200).json({
+      success: true,
+    });
+  }
+
+  if (!stats.isAutoRenewable) {
+    const pricing = await Package.findOne({ type: "Free" });
+
+    const limits = {};
+
+    for (const feature of pricing.features) {
+      if (feature.key === "dailyLimit") {
+        limits.dailyLimit = feature.value;
+      }
+
+      if (feature.key === "saveLimit") {
+        limits.saveLimit = feature.value;
+      }
+
+      if (feature.key === "totalContentLimit") {
+        limits.totalContentLimit = feature.value;
+      }
+    }
+
+    stats.packageType = "Free";
+    stats.package = pricing._id;
+    stats.limits = limits;
+    await stats.save();
+
+    return res.status(200).json({
+      success: true,
+      isDowngraded:true,
+      message:
+        "You have not turned on auto renewal. So you have been downgraded to free package",
+    });
+  }
+
+  const customerId = stats.customerId;
+
+  const card = await Cards.findOne({ user: userId });
+
+  const paymentMethodId = card.paymentMethodId;
+
+  const paymentIntents = await stripe.paymentIntents.create({
+    currency: "usd",
+    amount: 20 * 100,
+    payment_method: paymentMethodId,
+    customer: customerId,
+    off_session: true,
+    confirm: true,
+  });
+
+  if (paymentIntents.status !== "succeeded") {
+    stats.isAutoRenewable = false;
+    await stats.save();
+
+    return res.status(200).json({
+      success: false,
+      message:
+        "Auto payment failed! Auto renewal has been turned off. Please subscribe manually in 1 day and ",
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    isAutoRenewed: true,
+    message: "Auto renewed successfully",
+  });
+});
+
 export {
   createUser,
   getUser,
@@ -245,4 +343,5 @@ export {
   setAutoBilling,
   selectCard,
   removeSelectedCard,
+  checkStats,
 };

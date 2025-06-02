@@ -4,12 +4,15 @@ import { useServer } from "./hooks/useServer";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./config/firebase.config";
-import { useDispatch } from "react-redux";
-import { clearLoading, setUser } from "./store/slice/user";
+import { useDispatch, useSelector } from "react-redux";
+import { clearLoading, degradeStats, setUser } from "./store/slice/user";
 import { Toaster } from "./components/ui/sonner";
+import { toast } from "sonner";
 
 function App() {
   const dispatch = useDispatch();
+
+  const { user } = useSelector((state) => state.user);
 
   const { mutate } = useServer({
     onSuccess: (data) => {
@@ -26,6 +29,34 @@ function App() {
       dispatch(clearLoading());
     },
   });
+
+  const { mutate: autoReneweCheck } = useServer({
+    onSuccess: (data) => {
+      if (data?.isAutoRenewed) {
+        return toast.success(data.message);
+      }
+      if (data?.isDowngraded) {
+        dispatch(degradeStats());
+        toast.warning(data.message);
+      }
+    },
+    onError: (err) => {
+      toast.warning(err.message);
+    },
+  });
+
+  useEffect(() => {
+    if (user) {
+      const options = {
+        method: "POST",
+      };
+
+      autoReneweCheck({
+        endpoint: "user/stats",
+        options,
+      });
+    }
+  }, [user]);
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -53,7 +84,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
-      <Toaster  richColors position="bottom-right"/>
+      <Toaster richColors position="bottom-right" />
     </>
   );
 }

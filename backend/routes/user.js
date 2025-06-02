@@ -1,6 +1,7 @@
 import { Router } from "express";
 import upload from "../config/multer.js";
 import {
+  checkStats,
   createUser,
   getUser,
   googleSignin,
@@ -18,11 +19,12 @@ router
   .post(createUser)
   .patch(verifyUser, upload.single("avatar"), updateUser);
 router.route("/me").post(getUser);
+router.route("/stats").post(verifyUser, checkStats);
 router.route("/google").post(googleSignin);
 router
   .route("/billing")
   .post(verifyUser, setAutoBilling)
   .patch(verifyUser, selectCard)
-  .delete(verifyUser,removeSelectedCard);
+  .delete(verifyUser, removeSelectedCard);
 
 export const userRoutes = router;
