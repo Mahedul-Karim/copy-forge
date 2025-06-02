@@ -296,7 +296,7 @@ const checkStats = asyncWrapper(async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      isDowngraded:true,
+      isDowngraded: true,
       message:
         "You have not turned on auto renewal. So you have been downgraded to free package",
     });
@@ -306,12 +306,27 @@ const checkStats = asyncWrapper(async (req, res) => {
 
   const card = await Cards.findOne({ user: userId });
 
-  const paymentMethodId = card.paymentMethodId;
+  if (!card) {
+    stats.isAutoRenewable = false;
+    await stats.save();
+    return res.status(200).json({
+      success: false,
+      message: "You have not saved any card. Auto renewal has been turned off!",
+    });
+  }
+
+  const paymentMethodId = req.user.autoBillingCard;
+
+  let randomCardMethod;
+
+  if (!paymentMethodId) {
+    randomCardMethod = card.paymentMethodId;
+  }
 
   const paymentIntents = await stripe.paymentIntents.create({
     currency: "usd",
     amount: 20 * 100,
-    payment_method: paymentMethodId,
+    payment_method: paymentMethodId ? paymentMethodId : randomCardMethod,
     customer: customerId,
     off_session: true,
     confirm: true,
@@ -327,6 +342,9 @@ const checkStats = asyncWrapper(async (req, res) => {
         "Auto payment failed! Auto renewal has been turned off. Please subscribe manually in 1 day and ",
     });
   }
+
+  stats.renewedAt = new Date();
+  await stats.save();
 
   res.status(200).json({
     success: true,

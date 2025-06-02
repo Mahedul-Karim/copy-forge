@@ -51,6 +51,7 @@ const SavedCards = ({ setOpen }) => {
       queryClient.invalidateQueries({ queryKey: ["userStats"] });
       dispatch(updateStats());
       queryClient.refetchQueries({ queryKey: ["userPackages"] });
+      setOpen(false);
     },
     onError: (err) => {
       toast.error(err?.message);

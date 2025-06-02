@@ -8,7 +8,7 @@ import { toast } from "sonner";
 
 const BillingSetting = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+  const { user, creditCard } = useSelector((state) => state.user);
 
   const { mutate } = useServer({
     onSuccess: (data) => {
@@ -21,6 +21,12 @@ const BillingSetting = () => {
   });
 
   const handleCheckChange = (val) => {
+    if (!creditCard || creditCard?.length === 0) {
+      return toast.warning(
+        "You need to save a card in order to turn on auto billing"
+      );
+    }
+
     dispatch(setAutoBilling(val));
 
     const options = {
