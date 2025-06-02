@@ -8,9 +8,39 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import PurchaseModal from "@/components/common/modal/PurchaseModal";
+import { useDispatch } from "react-redux";
+import { useServer } from "@/hooks/useServer";
+import { toast } from "sonner";
+import { degradeStats } from "@/store/slice/user";
+import { useQueryClient } from "@tanstack/react-query";
+import { Loader } from "lucide-react";
 
 const CurrentSubscription = ({ stats }) => {
   const [open, setOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const queryClient = useQueryClient();
+
+  const { mutate, isPending } = useServer({
+    onSuccess: (data) => {
+      toast.success(data?.message);
+      dispatch(degradeStats());
+      queryClient.invalidateQueries({ queryKey: ["userStats"] });
+      queryClient.refetchQueries({ queryKey: ["userPackages"] });
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
+  const handleCancel = () => {
+    const options = {
+      method: "POST",
+    };
+
+    mutate({ endpoint: "payment/cancel", options });
+  };
 
   const nextBillingDate = (date) => {
     const renewedAtDate = new Date(date);
@@ -57,8 +87,10 @@ const CurrentSubscription = ({ stats }) => {
             <Button
               variant="outline"
               className="grow font-semibold border-border text-text-secondary w-full xs:w-auto order-2 xs:order-1"
+              disabled={isPending}
+              onClick={handleCancel}
             >
-              Cancel Plan
+              {isPending && <Loader className="animate-spin" />} Cancel Plan
             </Button>
           )}
           {stats?.type === "Free" && (

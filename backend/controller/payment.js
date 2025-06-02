@@ -102,6 +102,48 @@ export const purchaseSuccess = asyncWrapper(async (req, res) => {
   });
 });
 
+export const cancelPackage = asyncWrapper(async (req, res) => {
+  const userId = req.user._id;
+
+  const pricing = await Package.findOne({ type: "Free" });
+
+  const limits = {};
+
+  for (const feature of pricing.features) {
+    if (feature.key === "dailyLimit") {
+      limits.dailyLimit = feature.value;
+    }
+
+    if (feature.key === "saveLimit") {
+      limits.saveLimit = feature.value;
+    }
+
+    if (feature.key === "totalContentLimit") {
+      limits.totalContentLimit = feature.value;
+    }
+  }
+
+  const stats = await Stats.findOneAndUpdate(
+    { user: userId },
+    {
+      package: pricing._id,
+      packageType: "Free",
+      limits,
+    },
+    {
+      new: true,
+    }
+  )
+    .select("package renewedAt")
+    .populate("package");
+
+  res.status(200).json({
+    success: true,
+    message: "Subscription canceled successfully!",
+    stats,
+  });
+});
+
 export const setupIntent = asyncWrapper(async (req, res, next) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET);
 
