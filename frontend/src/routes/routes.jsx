@@ -63,7 +63,7 @@ export const router = createBrowserRouter([
         path: "user",
         element: (
           <ProtectedRoutes>
-            <Profile />,
+            <Profile />
           </ProtectedRoutes>
         ),
       },
@@ -71,7 +71,7 @@ export const router = createBrowserRouter([
         path: "/user/documents",
         element: (
           <ProtectedRoutes>
-            <AllDocuments />,
+            <AllDocuments />
           </ProtectedRoutes>
         ),
       },
@@ -79,7 +79,7 @@ export const router = createBrowserRouter([
         path: "/document/create",
         element: (
           <ProtectedRoutes>
-            <CreateDocument />,
+            <CreateDocument />
           </ProtectedRoutes>
         ),
       },
