@@ -1,20 +1,10 @@
 import Container from "@/components/common/Container";
 import DataTable from "@/components/common/data/DataTable";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { formateDate } from "@/lib/utils";
 import { ArrowDown, Layers, Pencil, Trash } from "lucide-react";
 import React from "react";
-
-const data = [
-  {
-    name: "10 useEffect uses",
-    createdAt: new Date(Date.now() * Math.round(Math.random() * 5)),
-  },
-  {
-    name: "10 usefull react hooks uses",
-    createdAt: new Date(Date.now() * Math.round(Math.random() * 5)),
-  },
-];
+import { Link } from "react-router";
 
 const columns = [
   {
@@ -69,9 +59,12 @@ const columns = [
 
       return (
         <div className="flex justify-center items-center">
-          <Button variant="ghost" onClick={() => console.log(data)}>
+          <Link
+            to={`/document/edit/${data?._id}`}
+            className={buttonVariants({ variant: "ghost" })}
+          >
             <Pencil />
-          </Button>
+          </Link>
           <Button variant="ghost">
             <Trash />
           </Button>
@@ -89,8 +82,10 @@ const AllDocuments = () => {
     <main className="bg-paper dark:bg-background">
       <Container className="py-8 md:py-16">
         <section className="p-6 rounded-xl bg-background dark:bg-paper">
-          <h3 className="xs:text-lg font-bold text-text-primary">All Documents</h3>
-          <DataTable data={data} columns={columns} />
+          <h3 className="xs:text-lg font-bold text-text-primary">
+            All Documents
+          </h3>
+          {/* <DataTable data={data} columns={columns} /> */}
         </section>
       </Container>
     </main>

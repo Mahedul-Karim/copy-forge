@@ -12,6 +12,7 @@ import Profile from "@/pages/user/Profile";
 import AllDocuments from "@/pages/user/document/AllDocuments";
 import CreateDocument from "@/pages/document/CreateDocument";
 import ProtectedRoutes from "./ProtectedRoutes";
+import EditDocument from "@/pages/user/document/EditDocument";
 
 export const router = createBrowserRouter([
   {
@@ -70,6 +71,14 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoutes>
             <CreateDocument />,
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/document/edit/:documentId",
+        element: (
+          <ProtectedRoutes>
+            <EditDocument />
           </ProtectedRoutes>
         ),
       },

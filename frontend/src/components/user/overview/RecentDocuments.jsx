@@ -58,12 +58,15 @@ const columns = [
 
       return (
         <div className="flex justify-center items-center">
-          <Button variant="ghost" onClick={() => console.log(data)}>
+          <Link
+            to={`/document/edit/${data?._id}`}
+            className={buttonVariants({ variant: "ghost" })}
+          >
             <Pencil />
-          </Button>
-          <Button variant="ghost">
+          </Link>
+          {/* <Button variant="ghost">
             <Trash />
-          </Button>
+          </Button> */}
         </div>
       );
     },
@@ -78,14 +81,14 @@ const RecentDocuments = ({ contents }) => {
     <section className="order-2 xs:order-3">
       <div className="flex items-center justify-between">
         <h3 className="xs:text-lg font-bold text-text-primary">
-          Recent Documents
+          All Documents
         </h3>
-        <Link
+        {/* <Link
           to="/user/documents"
           className={buttonVariants({ variant: "ghost" })}
         >
           View All
-        </Link>
+        </Link> */}
       </div>
       <DataTable data={contents} columns={columns} />
     </section>

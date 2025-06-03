@@ -9,7 +9,6 @@ export const getRecentContents = asyncWrapper(async (req, res, next) => {
   const userId = req.user._id;
 
   const contents = await Content.find({ creator: userId })
-    .limit(5)
     .sort({ createdAt: -1 });
 
   res.status(200).json({
@@ -104,5 +103,35 @@ export const generateContent = asyncWrapper(async (req, res, next) => {
   res.status(201).json({
     success: true,
     content: newContent,
+  });
+});
+
+export const getSingleContent = asyncWrapper(async (req, res, next) => {
+  const { documentId } = req.params;
+
+  const content = await Content.findById(documentId);
+
+  if (!content) {
+    return next(new AppError("No contents found for this id", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    content,
+  });
+});
+
+export const updateDocument = asyncWrapper(async (req, res) => {
+  const { documentId } = req.params;
+
+  const data = req.body;
+
+  await Content.findByIdAndUpdate(documentId, {
+    ...data,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Document updated successfully",
   });
 });

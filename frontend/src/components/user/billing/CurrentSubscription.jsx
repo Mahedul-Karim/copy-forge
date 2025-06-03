@@ -15,7 +15,7 @@ import { degradeStats } from "@/store/slice/user";
 import { useQueryClient } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 
-const CurrentSubscription = ({ stats }) => {
+const CurrentSubscription = ({ stats,renewedAt }) => {
   const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -76,9 +76,9 @@ const CurrentSubscription = ({ stats }) => {
           <p className="text-xl sm:text-3xl text-text-primary font-bold">
             {stats?.type} Plan
           </p>
-          {stats?.type !== "free" && stats?.renewedAt && (
+          {stats?.type !== "Free" && renewedAt && (
             <p className="text-text-secondary text-sm sm:text-base">
-              Next billing is on {nextBillingDate(stats?.renewedAt)}
+              Next billing is on {nextBillingDate(renewedAt)}
             </p>
           )}
         </CardContent>

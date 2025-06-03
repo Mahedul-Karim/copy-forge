@@ -1,4 +1,4 @@
-<h2 align="center"><strong>🛠️ This site is a work in progress. Contributions and feedback are welcome!</strong></h2>
+CopyForge is a SaaS platform where a user can generate contents with AI according their needs.
 
 ## 🔗 Live URL
 
@@ -7,11 +7,15 @@ https://copy-forge.vercel.app/
 ## 💡 Key Features
 
 - Dark Mode
+- User's can create account, purchase packages, Generate contents with AI and edit those contents with rich text editor.
+- Stripe payment gateway
+- User's can save their credit card info and use those cards for purchase packages
+- User can turn on auto billing and select a card for auto billing and then stripe will automatically charge at the one month duration from their selected card
+- A user can update their profile and upload their profile image.
 
 ## ✨ Custom-Built Features (No External Libraries)
 
 - Custom typing animation
-- Used custom utility function to format date
 
 ## 🧪 Test Credentials
 
@@ -30,3 +34,7 @@ https://copy-forge.vercel.app/
 - **Shadcn UI:** - For prebuilt components
 - **Framer Motion:** - For animation
 - **@tanstack/react-table:** - As a headless ui for table
+- **Firebase:** - To handle authentication
+- **Stripe:** - For payment gateway
+- **@tinymce/tinymce-react:** -  As rich text editor
+

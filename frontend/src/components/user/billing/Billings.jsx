@@ -63,7 +63,7 @@ const Billings = () => {
           </Alert>
         </>
       )}
-      <CurrentSubscription stats={data?.stats?.package} />
+      <CurrentSubscription stats={data?.stats?.package} renewedAt={data?.stats?.renewedAt} />
       <BillingSetting />
       <MyCards />
       <SelectedCard />
