@@ -37,4 +37,5 @@ https://copy-forge.vercel.app/
 - **Firebase:** - To handle authentication
 - **Stripe:** - For payment gateway
 - **@tinymce/tinymce-react:** -  As rich text editor
+- **Gemini 2.0 flash:** - As the content generator ai
 

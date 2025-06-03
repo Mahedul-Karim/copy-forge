@@ -1,24 +1,33 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router";
+
 import Main from "../pages/layout/Main";
-import Home from "../pages/home/Home";
-import NotFound from "@/components/error/NotFound";
-import PricingPage from "@/pages/pricing/PricingPage";
-import AboutUs from "@/pages/about-us/AboutUs";
-import ContactUs from "@/pages/contact-us/ContactUs";
-import Auth from "@/pages/layout/Auth";
-import Login from "@/pages/auth/Login";
-import SignUp from "@/pages/auth/SignUp";
-import Profile from "@/pages/user/Profile";
-import AllDocuments from "@/pages/user/document/AllDocuments";
-import CreateDocument from "@/pages/document/CreateDocument";
-import ProtectedRoutes from "./ProtectedRoutes";
-import EditDocument from "@/pages/user/document/EditDocument";
+
+const Home = lazy(() => import("../pages/home/Home"));
+const NotFound = lazy(() => import("@/components/error/NotFound"));
+const PricingPage = lazy(() => import("@/pages/pricing/PricingPage"));
+const AboutUs = lazy(() => import("@/pages/about-us/AboutUs"));
+const ContactUs = lazy(() => import("@/pages/contact-us/ContactUs"));
+const Auth = lazy(() => import("@/pages/layout/Auth"));
+const Login = lazy(() => import("@/pages/auth/Login"));
+const SignUp = lazy(() => import("@/pages/auth/SignUp"));
+const Profile = lazy(() => import("@/pages/user/Profile"));
+const AllDocuments = lazy(() => import("@/pages/user/document/AllDocuments"));
+const CreateDocument = lazy(() => import("@/pages/document/CreateDocument"));
+const ProtectedRoutes = lazy(() => import("./ProtectedRoutes"));
+const EditDocument = lazy(() => import("@/pages/user/document/EditDocument"));
+
+import SuspenseFallback from "./SuspenseFallback";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
-    errorElement: <NotFound />,
+    errorElement: (
+      <SuspenseFallback>
+        <NotFound />
+      </SuspenseFallback>
+    ),
     children: [
       {
         index: true,
