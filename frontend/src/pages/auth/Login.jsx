@@ -25,8 +25,8 @@ import { setUser } from "@/store/slice/user";
 import { useToast } from "@/hooks/useToast";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("test@gmail.com");
+  const [password, setPassword] = useState("test1234");
 
   const navigate = useNavigate();
 
