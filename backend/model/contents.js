@@ -20,6 +20,17 @@ const contentSchema = new Schema(
     document: {
       type: String,
     },
+    outputs: {
+      blog: String,
+
+      seo: {
+        title: String,
+        description: String,
+      },
+
+      linkedin: String,
+      twitter: [String],
+    },
     creator: {
       type: Schema.Types.ObjectId,
       ref: "User",
@@ -28,7 +39,7 @@ const contentSchema = new Schema(
 
   {
     timestamps: true,
-  }
+  },
 );
 
 export const Content = model("Content", contentSchema);

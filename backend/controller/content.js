@@ -4,12 +4,14 @@ import AppError from "../config/error.js";
 import { Stats } from "../model/stats.js";
 import { initializeAi } from "../config/gemini.js";
 import { extractHTMLContent } from "../util/util.js";
+import { runWorkflow } from "../ai/runWorkflow.js";
 
 export const getRecentContents = asyncWrapper(async (req, res, next) => {
   const userId = req.user._id;
 
-  const contents = await Content.find({ creator: userId })
-    .sort({ createdAt: -1 });
+  const contents = await Content.find({ creator: userId }).sort({
+    createdAt: -1,
+  });
 
   res.status(200).json({
     success: true,
@@ -20,9 +22,9 @@ export const getRecentContents = asyncWrapper(async (req, res, next) => {
 export const generateContent = asyncWrapper(async (req, res, next) => {
   const userId = req.user._id;
 
-  const { topic, keywords, language, writingStyle } = req.body;
+  const { topic, keywords, language, writingStyle, workflow } = req.body;
 
-  if (!topic || !language || !writingStyle) {
+  if (!topic || !language || !writingStyle || !workflow) {
     return next(new AppError("Missing required fields", 400));
   }
   if (!Array.isArray(keywords)) {
@@ -39,8 +41,8 @@ export const generateContent = asyncWrapper(async (req, res, next) => {
     return next(
       new AppError(
         "You have reached your daily limit for content creation",
-        400
-      )
+        400,
+      ),
     );
   }
 
@@ -48,32 +50,23 @@ export const generateContent = asyncWrapper(async (req, res, next) => {
     return next(
       new AppError(
         "You have reached total content creation limitaion for your package. Upgrade package or wait for monthly resets",
-        401
-      )
+        401,
+      ),
     );
   }
 
-  const prompt = `Generate a comprehensive and engaging article on the topic of '${topic}'.
-    Incorporate the following keywords naturally: ${
-      keywords && keywords.length > 0 ? keywords.join(", ") : "none"
-    }.
-    The content should be in ${language} and written in a ${writingStyle} tone.
-    Ensure the output is in pure HTML string format.
-    Crucially, **DO NOT include <html>, <head>, or <body> tags**.
-    Only provide the content that would typically go inside the <body>,
-    including appropriate HTML tags for headings (e.g., <h1>, <h2>), paragraphs (<p>),
-    lists (<ul>, <ol>, <li>), bold (<strong>), italic (<em>), and any other relevant HTML formatting for an article.`;
-
-  const model = await initializeAi();
-
-  const result = await model.generateContent(prompt);
-  const response = await result.response;
-  const content = response.text();
+  const workflowResults = await runWorkflow({
+    topic,
+    keywords,
+    language,
+    writingStyle,
+    workflow,
+  });
 
   stats.usage.dailyLimitUsed = dailyLimitUsed + 1;
   stats.usage.totalContentUsed = totalContentUsed + 1;
 
-  const cleanedContent = extractHTMLContent(content);
+  const cleanedContent = extractHTMLContent(workflowResults?.blog);
 
   if (saveLimitUsed >= saveLimit) {
     await stats.save();
@@ -94,6 +87,12 @@ export const generateContent = asyncWrapper(async (req, res, next) => {
     writingStyle,
     document: cleanedContent,
     creator: userId,
+    outputs: {
+      blog: cleanedContent,
+      seo: workflowResults?.seo,
+      linkedin: workflowResults?.linkedin,
+      twitter: workflowResults?.twitter,
+    },
   });
 
   stats.createdContents.push(newContent._id);
