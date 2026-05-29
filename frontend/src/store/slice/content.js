@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   document: null,
+  contents:null
 };
 
 const contentSlice = createSlice({
@@ -10,6 +11,7 @@ const contentSlice = createSlice({
   reducers: {
     setDocument(state, action) {
       state.document = action.payload.document;
+      state.contents = action.payload.contents;
     },
   },
 });

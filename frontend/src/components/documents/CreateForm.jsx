@@ -76,12 +76,13 @@ const initialState = {
   keywords: [],
   language: "English",
   writingStyle: "Professional",
+  workflow: "blog-package",
 };
 
 const CreateForm = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const { topic, keywords, language, writingStyle } = state;
+  const { topic, keywords, language, writingStyle, workflow } = state;
 
   const [keyword, setKeyword] = useState("");
   const [open, setOpen] = useState(false);
@@ -92,7 +93,12 @@ const CreateForm = () => {
 
   const { mutate, isPending } = useServer({
     onSuccess: (data) => {
-      reduxDispatch(setDocument({ document: data?.content?.document }));
+      reduxDispatch(
+        setDocument({
+          document: data?.content?.document,
+          contents: data?.content?.outputs,
+        }),
+      );
 
       if (data?.message) {
         warning(data?.message);
@@ -113,6 +119,17 @@ const CreateForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (
+      !topic ||
+      keywords.length === 0 ||
+      !language ||
+      !writingStyle ||
+      !workflow
+    ) {
+      error("Please fill in all required fields.");
+      return;
+    }
 
     const options = {
       method: "POST",
@@ -170,7 +187,7 @@ const CreateForm = () => {
                     type="button"
                     onClick={() => {
                       const newKeywords = [...keywords].filter(
-                        (_, index) => index !== i
+                        (_, index) => index !== i,
                       );
 
                       dispatch({ field: "keywords", value: newKeywords });
@@ -214,7 +231,7 @@ const CreateForm = () => {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            language === lang ? "opacity-100" : "opacity-0"
+                            language === lang ? "opacity-100" : "opacity-0",
                           )}
                         />
                         {lang}
@@ -245,6 +262,25 @@ const CreateForm = () => {
               <SelectItem value="Casual">Casual</SelectItem>
               <SelectItem value="Funny">Funny</SelectItem>
               <SelectItem value="Sarcastic">Sarcastic</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <Label className="text-text-secondary font-semibold">Workflow</Label>
+          <Select
+            value={workflow}
+            onValueChange={(val) => dispatch({ field: "workflow", value: val })}
+            disabled={isPending}
+          >
+            <SelectTrigger className="w-full cursor-pointer text-text-primary font-medium shadow-none">
+              <SelectValue placeholder="Select a workflow" />
+            </SelectTrigger>
+            <SelectContent className="border-border bg-background dark:bg-paper">
+              <SelectItem value="blog-only">Blog Only</SelectItem>
+              <SelectItem value="blog-package">Blog and SEO</SelectItem>
+              <SelectItem value="marketing-campaign">
+                Full Marketing Campaign
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>

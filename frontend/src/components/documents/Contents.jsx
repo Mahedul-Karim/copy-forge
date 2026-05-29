@@ -1,12 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 import styles from "./contents.module.css";
 
-
 const Contents = () => {
-  const { document: aiDoc } = useSelector((state) => state.content);
-
+  const { document: aiDoc, contents } = useSelector((state) => state.content);
 
   return (
     <main className="py-4 pl-1 xs:pl-4 h-[500px] overflow-auto order-1 sm:order-2">
@@ -40,12 +38,42 @@ const Contents = () => {
           </p>
         </section>
       ) : (
-        <div
-          id={styles.content}
-          dangerouslySetInnerHTML={{
-            __html: aiDoc,
-          }}
-        ></div>
+        <>
+          <div
+            id={styles.content}
+            dangerouslySetInnerHTML={{
+              __html: aiDoc,
+            }}
+          ></div>
+          <div className="py-4 border-y border-border text-[#1f2937]">
+            <h3 className="text-xl font-bold text-text-primary text-center">
+              SEO
+            </h3>
+            <p className="">
+              <span className="font-bold text-text-primary">Title:</span>{" "}
+              {contents?.seo?.title}
+            </p>
+
+            <p>
+              <span className="font-bold text-text-primary">Description:</span>{" "}
+              {contents?.seo?.description}
+            </p>
+          </div>
+
+          <div className="whitespace-pre-wrap text-[#1f2937] py-4 border-b border-border">
+            <h3 className="text-xl font-bold text-text-primary text-center">
+              LinkedIn
+            </h3>
+            {contents?.linkedin}
+          </div>
+
+          <div className="whitespace-pre-wrap text-[#1f2937] py-4">
+            <h3 className="text-xl font-bold text-text-primary text-center">
+              Twitter
+            </h3>
+            {contents?.twitter}
+          </div>
+        </>
       )}
     </main>
   );
