@@ -1,4 +1,4 @@
-CopyForge is a SaaS platform where a user can generate contents with AI according their needs.
+CopyForge is an AI-powered content automation platform that orchestrates multi-step generation workflows (blog writing, SEO metadata, LinkedIn posts, and Twitter ) using Google Gemini API, with structured output pipelines, reusable prompt modules, and MongoDB-based persistence.
 
 ## 🔗 Live URL
 
