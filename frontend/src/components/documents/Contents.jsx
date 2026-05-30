@@ -45,34 +45,42 @@ const Contents = () => {
               __html: aiDoc,
             }}
           ></div>
-          <div className="py-4 border-y border-border text-[#1f2937]">
-            <h3 className="text-xl font-bold text-text-primary text-center">
-              SEO
-            </h3>
-            <p className="">
-              <span className="font-bold text-text-primary">Title:</span>{" "}
-              {contents?.seo?.title}
-            </p>
+          {contents?.seo && (
+            <div className="py-4 border-y border-border text-[#1f2937]">
+              <h3 className="text-xl font-bold text-text-primary text-center">
+                SEO
+              </h3>
+              <p className="">
+                <span className="font-bold text-text-primary">Title:</span>{" "}
+                {contents?.seo?.title}
+              </p>
 
-            <p>
-              <span className="font-bold text-text-primary">Description:</span>{" "}
-              {contents?.seo?.description}
-            </p>
-          </div>
+              <p>
+                <span className="font-bold text-text-primary">
+                  Description:
+                </span>{" "}
+                {contents?.seo?.description}
+              </p>
+            </div>
+          )}
 
-          <div className="whitespace-pre-wrap text-[#1f2937] py-4 border-b border-border">
-            <h3 className="text-xl font-bold text-text-primary text-center">
-              LinkedIn
-            </h3>
-            {contents?.linkedin}
-          </div>
+          {contents?.linkedin && (
+            <div className="whitespace-pre-wrap text-[#1f2937] py-4 border-b border-border">
+              <h3 className="text-xl font-bold text-text-primary text-center">
+                LinkedIn
+              </h3>
+              {contents?.linkedin}
+            </div>
+          )}
 
-          <div className="whitespace-pre-wrap text-[#1f2937] py-4">
-            <h3 className="text-xl font-bold text-text-primary text-center">
-              Twitter
-            </h3>
-            {contents?.twitter}
-          </div>
+          {contents?.twitter && (
+            <div className="whitespace-pre-wrap text-[#1f2937] py-4">
+              <h3 className="text-xl font-bold text-text-primary text-center">
+                Twitter
+              </h3>
+              {contents?.twitter}
+            </div>
+          )}
         </>
       )}
     </main>

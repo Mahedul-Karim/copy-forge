@@ -2,7 +2,7 @@ import React, { useReducer, useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Badge } from "../ui/badge";
-import { Check, ChevronsUpDown, Loader, X } from "lucide-react";
+import { Check, ChevronsUpDown, Loader, Plus, X } from "lucide-react";
 import { Button } from "../ui/button";
 import {
   Command,
@@ -164,15 +164,32 @@ const CreateForm = () => {
         </div>
         <div className="space-y-2">
           <Label className="text-text-secondary font-semibold">Keywords</Label>
-          <Input
-            type="text"
-            className="text-sm bg-background  text-text-primary placeholder:text-text-secondary/60 shadow-none"
-            placeholder="react"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            onKeyDown={handleKeyDown}
-            disabled={isPending}
-          />
+          <div className="relative">
+            <Input
+              type="text"
+              className="text-sm bg-background  text-text-primary placeholder:text-text-secondary/60 shadow-none"
+              placeholder="react"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              onKeyDown={handleKeyDown}
+              disabled={isPending}
+            />
+            <Button
+              type="button"
+              size={"icon"}
+              variant={"ghost"}
+              className={
+                "absolute top-0 right-0 text-text-primary dark:text-text-primary transition-none"
+              }
+              onClick={() => {
+                if (!keyword) return;
+                dispatch({ field: "keywords", value: [...keywords, keyword] });
+                setKeyword("");
+              }}
+            >
+              <Plus />
+            </Button>
+          </div>
           <div className="flex items-center gap-2 flex-wrap">
             {keywords.length > 0 &&
               keywords.map((word, i) => (
