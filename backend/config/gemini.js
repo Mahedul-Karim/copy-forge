@@ -7,7 +7,7 @@ export const initializeAi = async () => {
 
   const genAi = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   model = genAi.getGenerativeModel({
-    model: "gemini-2.5-flash",
+    model: "gemini-3.5-flash",
   });
 
   return model;
