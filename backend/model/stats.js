@@ -42,6 +42,7 @@ const statsSchema = new Schema(
     },
     renewedAt: {
       type: Date,
+      default:Date.now
     },
     isAutoRenewable: {
       type: Boolean,

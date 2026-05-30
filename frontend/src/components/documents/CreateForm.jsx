@@ -31,6 +31,7 @@ import { useToast } from "@/hooks/useToast";
 import { useDispatch } from "react-redux";
 import { useServer } from "@/hooks/useServer";
 import { setDocument } from "@/store/slice/content";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Icon = () => {
   return (
@@ -91,6 +92,8 @@ const CreateForm = () => {
 
   const reduxDispatch = useDispatch();
 
+  const queryClient = useQueryClient();
+
   const { mutate, isPending } = useServer({
     onSuccess: (data) => {
       reduxDispatch(
@@ -99,6 +102,9 @@ const CreateForm = () => {
           contents: data?.content?.outputs,
         }),
       );
+
+      queryClient.invalidateQueries({ queryKey: ["userStats"] });
+      queryClient.invalidateQueries({ queryKey: ["userDocuments"] });
 
       if (data?.message) {
         warning(data?.message);

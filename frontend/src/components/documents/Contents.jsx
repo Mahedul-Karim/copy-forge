@@ -73,7 +73,7 @@ const Contents = () => {
             </div>
           )}
 
-          {contents?.twitter && (
+          {contents?.twitter?.length !== 0 && (
             <div className="whitespace-pre-wrap text-[#1f2937] py-4">
               <h3 className="text-xl font-bold text-text-primary text-center">
                 Twitter

@@ -13,9 +13,9 @@ export const getStats = asyncWrapper(async (req, res, next) => {
 
   const now = new Date();
 
-  const createdAt = stats.createdAt;
+  const monthlyBase = stats.renewedAt || stats.createdAt;
   const oneMonth = 30 * 24 * 60 * 60 * 1000;
-  const timePassedSinceCreation = now.getTime() - new Date(createdAt).getTime();
+  const timePassedSinceCreation = now.getTime() - new Date(monthlyBase).getTime();
 
   const lastReset = stats.lastResetedAt || new Date(0);
   const oneDay = 24 * 60 * 60 * 1000;
@@ -30,10 +30,11 @@ export const getStats = asyncWrapper(async (req, res, next) => {
       saveLimitUsed: 0,
       totalContentUsed: 0,
     };
-    stats.createdAt = now;
+    stats.renewedAt = now;
     stats.lastResetedAt = now;
     isUpdated = true;
-  } else if (timePassedSinceLastReset >= oneDay) {
+  }  
+  if (timePassedSinceLastReset >= oneDay) {
     stats.usage.dailyLimitUsed = 0;
     stats.lastResetedAt = now;
     isUpdated = true;
