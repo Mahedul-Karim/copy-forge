@@ -8,10 +8,13 @@ import { useServer } from "@/hooks/useServer";
 import { toast } from "sonner";
 import { Loader } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
+import { Textarea } from "../ui/textarea";
 
 const EditForm = ({ content, id }) => {
   const [topic, setTopic] = useState(content?.topic || "");
   const [document, setDocument] = useState(content?.document || "");
+
+  const outputs = content?.outputs;
 
   const queryClient = useQueryClient();
 
@@ -75,6 +78,48 @@ const EditForm = ({ content, id }) => {
           Update Document
         </Button>
       </form>
+      {outputs?.seo?.title && (
+        <div className="py-6">
+          <h3 className="text-text-primary font-semibold text-lg xs:text-xl">
+            SEO Meta Data
+          </h3>
+          <hr className="my-6 border-border" />
+          <div className="space-y-2">
+            <Label className="text-text-secondary font-semibold">Title:</Label>
+            <Input
+              type="text"
+              className=" text-sm bg-background  text-text-primary placeholder:text-text-secondary/60 shadow-none disabled:opacity-100"
+              value={outputs?.seo?.title}
+              readOnly
+            />
+          </div>
+          <div className="space-y-2 mt-4">
+            <Label className="text-text-secondary font-semibold">
+              Description:
+            </Label>
+            <Textarea
+              className=" text-sm bg-background  text-text-primary placeholder:text-text-secondary/60 shadow-none disabled:opacity-100 border-input"
+              value={outputs?.seo?.description}
+              readOnly
+            />
+          </div>
+        </div>
+      )}
+      {outputs?.linkedin && (
+        <div className="py-6">
+          <h3 className="text-text-primary font-semibold text-lg xs:text-xl">
+            LinkedIn
+          </h3>
+          <hr className="my-6 border-border" />
+          <div className="space-y-2">
+            <Textarea
+              className=" text-sm bg-background  text-text-primary placeholder:text-text-secondary/60 shadow-none disabled:opacity-100 border-input"
+              value={outputs?.linkedin}
+              readOnly
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 };

@@ -9,7 +9,7 @@ import MobileNav from "../nav/MobileNav";
 const Header = () => {
   return (
     <>
-      <header className="border-b border-solid border-border bg-background dark:bg-paper py-2 sticky top-0 z-[2]">
+      <header className="border-b border-solid border-border bg-background dark:bg-paper py-2 sticky top-0 z-[3]">
         <Container className="flex items-center justify-between">
           <div className="flex items-center">
             <Logo />
