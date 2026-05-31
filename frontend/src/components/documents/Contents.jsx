@@ -45,10 +45,10 @@ const Contents = () => {
               __html: aiDoc,
             }}
           ></div>
-          {contents?.seo && (
+          {contents?.seo?.title && (
             <div className="py-4 border-y border-border text-[#1f2937]">
               <h3 className="text-xl font-bold text-text-primary text-center">
-                SEO
+                SEO Meta Data
               </h3>
               <p className="">
                 <span className="font-bold text-text-primary">Title:</span>{" "}
